@@ -68,3 +68,26 @@ necessary configuration options:
 
 It is mandatory to fill-in ```colosseumIp```. This as well as ``colosseumPort``` as well as the other colosseum 
 properties depend on the configuration of the [Runtime Toolkit](http://#).
+
+### CactoOpt-specific Configuration 
+
+When Runtime Controller is supposed to be used for controlling the CactoOpt configuration, ```opt_options.js``` 
+provides a single configuration options:
+```
+
+const optConfigDir = "/tmp/eu.cactosfp7.configuration/";
+
+```
+Change the value of ```optConfigDir``` to have it point ot the installation location of the configuratoin files for 
+your [Runtime Toolkit](http://#).
+
+## Starting the Service
+
+For a simple test, enter the installation directory (e.g., ```cd /opt/rtc``` and then further 
+to ```cd ./runtime-controller/src```). There, run node.js:
+```
+run ```node server.js```
+```
+
+### Running as a Daemon Service
+TODO: run as daemon service
