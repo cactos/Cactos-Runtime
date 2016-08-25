@@ -32,6 +32,7 @@ cd ./runtime-controller/src
 
 ```
 npm install httpdispatcher
+npm install shelljs
 ```
 
 ## Configuration Options
