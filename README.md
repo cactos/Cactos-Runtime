@@ -15,7 +15,7 @@ on the operating system as well as ```sed``` and ```grep```.
 
 ```
 yum install epel-release
-yum install nodejs
+yum install nodejs npm
 ```
 
 ### create runtime directory
@@ -24,7 +24,7 @@ Pick any directory on the server /runtime controller/ is supposed to run and cre
 Then, move there: ```cd /opt/rtc```. Next, clone this repo:
 
 ```
-git clone git@github.com:cactos/runtime-controller.git
+git clone https://github.com/cactos/runtime-controller.git
 ```
 
 ### installing node modules
