@@ -2,21 +2,23 @@
 
 A node.js based backend service run steer the data centre and control its configuration.
 
-# Installation
+## Installation
 
 This component is stand alone. It can be installed without any other component of the CACTOS Runtime Toolkit available. 
 Nevertheless, in order to make it work properly and have its configuration take effect on the runtime system, several 
 other tools need to be installed (see below).
 
-The installation and operation has been tested on CentOS 7.
+The installation and operation has been tested on CentOS 7. Also, the application requires ```bash``` to be installed
+on the operating system as well as ```sed``` and ```grep```.
 
-## install node js
+### installing node js
 
 ```
 yum install epel-release
 yum install nodejs
 ```
-## create runtime directory
+
+### create runtime directory
 
 Pick any directory on the server /runtime controller/ is supposed to run and create it ```mkdir -p /opt/rtc```. 
 Then, move there: ```cd /opt/rtc```. Next, clone this repo:
@@ -24,6 +26,10 @@ Then, move there: ```cd /opt/rtc```. Next, clone this repo:
 ```
 git clone git@github.com:cactos/runtime-controller.git
 ```
+
+### installing node modules
+
+TODO: uses httpdispatcher 
 
 ## Configuration Options
 
