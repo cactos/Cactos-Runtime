@@ -1,5 +1,6 @@
 //Lets require/import the HTTP module
-var child_process = require('child_process');
+//var child_process = require('child_process');
+var shell = require('shelljs');
 var global = require('./global');
 var optConfig = require('./opt_options');
 var colosseum = require('./colosseum');
@@ -8,7 +9,6 @@ var dispatcher = require('httpdispatcher');
 
 //Lets define a port we want to listen to
 const PORT=8080; 
-const SERVERNAME="localhost"
 
 //We need a function which handles requests and send response
 function handleRequest(request, response){
@@ -23,7 +23,7 @@ function handleRequest(request, response){
 var doWriteAction = function(algType, kind, value) {
 	console.log("writing configs: " + algType + "; " + kind + ";" + value);
 	var result = runProcess(algType, kind, 'set', value);
-	if(result.status === 0) {
+	if(getProcessStatus(result) === 0) {
 		console.log("writing success: " + processProcessResult(result, 1));
 	} else {
 		console.log("writing failure: " + processProcessResult(result, 1));
@@ -70,16 +70,24 @@ var writeHelper = function(body, algType, res) {
 
 var runProcess = function(algType, kind, operation, value) {
 	console.log("running '" + operation + "' process: " + algType + ", " + kind);
-	var result = child_process.spawnSync(__dirname + "/../bin/config_operator.sh",
+	/*var result = child_process.spawnSync(__dirname + "/../bin/config_operator.sh",
 				[operation,
 				 filenameBuilder(algType, kind),
 				 propertyBuilder(algType, kind),
 				 value,
 				], 
-				{});
-	console.log("running result: " + result.status);
+				{});*/
+	var result = shell.exec(__dirname + "/../bin/config_operator.sh " + operation + " " + filenameBuilder(algType, kind) + " " + propertyBuilder(algType, kind) + " " + value,
+			{shell: '/bin/bash'});
+	console.log("running result: " + getProcessStatus(result));
 	return result;
 };
+
+var getProcessStatus = function(process){
+	// return process.status;
+	return process.code;
+};
+
 
 var subReadHelper = function(algType, option) {
 	if(option === "") {
@@ -88,7 +96,7 @@ var subReadHelper = function(algType, option) {
 	} else {
 		var result = runProcess(algType, option, 'get', "");
 		// assumption: first time it worked, it has to work here as well //
-		if(result.status === 0) {
+		if(getProcessStatus(result) === 0) {
 			var confOption = processProcessResult(result, 2);
 			console.log("found subOption '" + confOption + "'");
 			return confOption;
@@ -103,7 +111,7 @@ var readHelper = function(algType, res) {
 	var data = { "main" : "", "sub" : ""};
 	var result = runProcess(algType, 'main', 'get', '');
 
-	if(result.status === 0){
+	if(getProcessStatus(result) === 0){
 		// algorithm is written to stderr //
 		var confOption = processProcessResult(result, 2);
 		var option = optConfig.findOption(algType, confOption);
@@ -120,7 +128,7 @@ var readHelper = function(algType, res) {
 		data = {};
 		res.writeHead(500, {'Content-Type' : 'application/json'});
 		data["execution"] = "failed";
-		data["statuscode"] = result.status;
+		data["statuscode"] = getProcessStatus(result);
 		data["output"] = processProcessResult(result, 1);
 	}
 	return data;
@@ -146,10 +154,12 @@ var propertyBuilder = function(branchName, fileType) {
 };
 
 var processProcessResult = function(result, index) {
-	var x = result.output[index];
-	if(x == null) return null;
-	if(Buffer.isBuffer(x)) return x.toString();
-	return x;
+//	var x = result.output[index];
+//	if(x == null) return null;
+//	if(Buffer.isBuffer(x)) return x.toString();
+//	return x;
+	if(index === 1) return result.stdout;
+	if(index === 2) return result.stderr;
 }
 
 dispatcher.onGet("/cactoopt/config/optimisation", function(req, res){
@@ -214,7 +224,7 @@ var server = http.createServer(handleRequest);
 //Lets start our server
 server.listen(PORT, function(){
     //Callback triggered when server is successfully listening. Hurray!
-    console.log("Server listening on: http://%s:%s", SERVERNAME, PORT);
+    console.log("Server listening on: http://localhost:%s", PORT);
 });
 
 
