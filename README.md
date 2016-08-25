@@ -39,10 +39,11 @@ The runtime controller supports multiple configuration options that are used eit
 ### Port Number
 
 The port number used by the application is configurable in the ```server.js``` file. Update the folllowing 
-line to the desired number.
+line to the desired number and the ```SERVERNAME``` to the bind address.
 ```
 //Lets define a port we want to listen to
 const PORT=8080; 
+const SERVERNAME="localhost";
 ```
 
 ###  Enabled Features
