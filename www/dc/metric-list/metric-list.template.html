@@ -1,0 +1,26 @@
+<h5>Available Monitors ({{$ctrl.computenodename.node}}):</h5>
+<ol>
+	<li ng-repeat="metric in $ctrl.metricList.list">
+		{{metric.uuid}}
+		<input type="button" value="edit" ng-click="$ctrl.loadInForm(metric)"></input>
+		<input type="button" value="delete" ng-click="$ctrl.deleteMetric(metric)"></input>
+		<ul>
+			<li>name: <i>{{metric.metricName}}</i> </li>
+			<li>type: <i>{{metric['@type']}}:</i> </li>
+			<li>sensor: <i>{{$ctrl.nameForValue('sensors',
+					metric.sensorClassName)}}</i></li>
+			<li>timing: <i>{{metric.interval.period}} 
+					{{$ctrl.nameForValue('units', metric.interval.timeUnit)}} 
+			</i>
+			</li>
+			<li><span ng-show="!$ctrl.hasSensorConfig(metric)">No </span>Sensor Configuration
+				<ul>
+					<li ng-repeat="(key, value) in metric.sensorConfiguration">
+						{{key}} := {{value}}
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ol>
+

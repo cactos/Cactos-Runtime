@@ -1,0 +1,48 @@
+<div>
+	<h4>Available Computenodes</h4>
+	<ul>
+		<li ng-repeat="computenode in $ctrl.computenodes"> 
+			<div ng-style="($ctrl.selected === computenode) &&
+			{'background-color' : 'lightgreen'}">
+				{{computenode[0]}}[{{computenode[1]}}]
+				<span ng-show="computenode[1] === 'off'">
+					&#x263e;
+					<button type="button" disabled
+						value="computenode"
+						ng-click="$ctrl.select(computenode)">
+						show metrics
+					</button>
+				</span>
+				<span ng-show="computenode[1] === 'running'">
+					&#x263c;
+					<button type="button" 
+						     value="computenode"
+						     ng-click="$ctrl.select(computenode)"/>
+						show metrics
+					</button>
+					<button type="button" 
+						     value="computenode"
+						     ng-click="alert('not implemented')"/>
+						enable maintenance
+					</button>
+				</span>
+				<span ng-show="computenode[1] === 'maintenance'">
+					&#x1f527;
+					<button type="button" 
+						     value="computenode"
+						     ng-click="alert('not implemented')"/>
+						enable
+					</button>
+				</span>
+				<span ng-show="computenode[1] === 'failure'">
+					&#x26a1;
+					<button type="button" disabled
+						     value="computenode"
+						     ng-click="alert('not implemented')"/>
+						send admin
+					</button>
+				</span>
+		       	</div>
+		</li>
+	</ul>
+</div>

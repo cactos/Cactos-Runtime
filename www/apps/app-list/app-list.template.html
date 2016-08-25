@@ -1,0 +1,8 @@
+<div>
+	<div>
+		<h5>CACTOS Applications</h5>
+	<ul>
+		<li ng-repeat="app in $ctrl.applications">
+			<a href="#!apps/{{$ctrl.getId(app)}}?name={{app['name']}}">{{app['name']}}</a></li>
+	</ul>
+</div>

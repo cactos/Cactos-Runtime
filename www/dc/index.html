@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" ng-app="datacentre">
+  <head>
+    <meta charset="utf-8">
+    <title>Visor Controller App</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+  <script src="http://www.w3schools.com/lib/w3data.js"></script>
+    <index-list-component></index-list-component>
+    <hr/>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+		<h1>Metrics App</h1>
+		<div class="span7" ng-controller="DcOverviewController" >
+			<compute-nodes on-select="updated(node)"></compute-nodes>
+			<h4> Selected computenode: {{cnode[0]}}</h4>
+			<div ng-show="cnode != 'not set'"/>
+				<metrics-creator cnode="cnode"></metrics-creator>
+				<metric-list cnode="cnode"></metric-list>
+			</div>
+		</div>
+	</div>
+      </div>
+    </div>
+  </body>
+  <script src="/lib/sugar/sugar-1.3.9.min.js"></script>
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-resource/angular-resource.js"></script>  
+  <script src="/global/global.module.js"></script>
+  <script src="/global/global.component.js"></script>
+  <script src="/dc/metrics.module.js"></script>
+  <script src="/dc/computenodes/computenodes.module.js"></script>
+  <script src="/dc/metric-state/metric-state.module.js"></script>
+  <script src="/dc/computenodes/computenodes.component.js"></script>
+  <script src="/dc/metrics-creator/metrics-creator.component.js"></script>
+  <script src="/dc/metric-list/metric-list.component.js"></script>
+  <script src="/dc/dc.js"></script>
+</html>

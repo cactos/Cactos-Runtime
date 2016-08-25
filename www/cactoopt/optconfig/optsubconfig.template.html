@@ -1,0 +1,20 @@
+<div class="def">
+	<div>
+		<h5>Sub-Configuration for "{{$ctrl.parentConfig}}" Algorithm:
+			{{$ctrl.subSelection}}</h5>
+		<div ng-show="$ctrl.subConfigAvailable()">
+			<label>select an algorithm: 
+			<select ng-model="$ctrl.subSelection" ng-change="$ctrl.update()">
+				<option value="">--- Select Option ---</option>
+				<option ng-repeat="opt in $ctrl.remoteElements"
+	    				value="{{opt['option']}}">
+					{{opt['name']}}
+				</option>
+			</select>
+			</label>
+		</div>
+		<div ng-hide="$ctrl.subConfigAvailable()">
+			no sub-config available
+		</div>
+	</div>
+</div>
