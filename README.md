@@ -2,28 +2,34 @@
 
 A node.js based backend service run steer the data centre and control its configuration.
 
-# Installation
+## Installation
 
 This component is stand alone. It can be installed without any other component of the CACTOS Runtime Toolkit available. 
 Nevertheless, in order to make it work properly and have its configuration take effect on the runtime system, several 
 other tools need to be installed (see below).
 
-The installation and operation has been tested on CentOS 7.
+The installation and operation has been tested on CentOS 7. Also, the application requires ```bash``` to be installed
+on the operating system as well as ```sed``` and ```grep```.
 
-## install node js
+### installing node js
 
 ```
 yum install epel-release
-yum install nodejs
+yum install nodejs npm
 ```
-## create runtime directory
+
+### create runtime directory
 
 Pick any directory on the server /runtime controller/ is supposed to run and create it ```mkdir -p /opt/rtc```. 
 Then, move there: ```cd /opt/rtc```. Next, clone this repo:
 
 ```
-git clone git@github.com:cactos/runtime-controller.git
+git clone https://github.com/cactos/runtime-controller.git
 ```
+
+### installing node modules
+
+TODO: uses httpdispatcher 
 
 ## Configuration Options
 
@@ -79,14 +85,16 @@ const optConfigDir = "/tmp/eu.cactosfp7.configuration/";
 
 ```
 Change the value of ```optConfigDir``` to have it point ot the installation location of the configuratoin files for 
-your [Runtime Toolkit](http://#).
+your [Runtime Toolkit](http://#). In case you are planning to use this feature, make sure that the file
+```config_operator.sh``` shipping with the runtime controller is in the ```bin``` directory and can be executed by
+the user under which node.js executes. You can make it executable by ```chmode +x /path/to/file/config_operator.sh```.
 
 ## Starting the Service
 
 For a simple test, enter the installation directory (e.g., ```cd /opt/rtc``` and then further 
 to ```cd ./runtime-controller/src```). There, run node.js:
 ```
-run ```node server.js```
+node server.js
 ```
 
 ### Running as a Daemon Service
