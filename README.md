@@ -94,7 +94,7 @@ the user under which node.js executes. You can make it executable by ```chmode +
 For a simple test, enter the installation directory (e.g., ```cd /opt/rtc``` and then further 
 to ```cd ./runtime-controller/src```). There, run node.js:
 ```
-run ```node server.js```
+node server.js
 ```
 
 ### Running as a Daemon Service
