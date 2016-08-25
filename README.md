@@ -79,7 +79,9 @@ const optConfigDir = "/tmp/eu.cactosfp7.configuration/";
 
 ```
 Change the value of ```optConfigDir``` to have it point ot the installation location of the configuratoin files for 
-your [Runtime Toolkit](http://#).
+your [Runtime Toolkit](http://#). In case you are planning to use this feature, make sure that the file
+```config_operator.sh``` shipping with the runtime controller is in the ```bin``` directory and can be executed by
+the user under which node.js executes. You can make it executable by ```chmode +x /path/to/file/config_operator.sh```.
 
 ## Starting the Service
 
