@@ -25,11 +25,14 @@ Then, move there: ```cd /opt/rtc```. Next, clone this repo:
 
 ```
 git clone https://github.com/cactos/runtime-controller.git
+cd ./runtime-controller/src
 ```
 
 ### installing node modules
 
-TODO: uses httpdispatcher 
+```
+npm install httpdispatcher
+```
 
 ## Configuration Options
 
