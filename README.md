@@ -45,10 +45,31 @@ the definition of a new virtual host, and the configuration of CACTOS forwarding
 rules.
 
 #### Enable Proxy Module
+
 TODO:
 
 #### Create New Site
 
-We suggest to run a new Virtual Host for the CACTOS proxy. 
+We suggest to run a new Virtual Host for the CACTOS proxy. In order to facilitate the configuration of the
+web server, this project comes with a config file template for such a virtual host. Copy the file to the 
+apache configuration directory:
+````
+cp /opt/cactos/runtime-user-interface/000-default.conf /etc/http/conf.d/15-cactos_vhost.conf
+```
 
 #### Configure New Site
+
+Open the file ```15-cactos_vhost.conf``` and edit the following lines:
+```
+Listen 8008
+
+<VirtualHost *:8008>
+  ServerName cactos-runtime.example.com:8008
+  Define runtimeController	<set value:8080>
+  Define runtimeManagement	<set value:9090>
+  Define monitoringService	<set value:8081>	
+  Define colosseumServer	<set value:9000>	
+```
+
+Set the value of ```Listen``` the desired port (above, we decided to go for ```8080```). Make sure to adapt the 
+port of the ```VirtualHost``` and the port of the ```ServerName``` accordingly.
