@@ -46,11 +46,11 @@ rules.
 
 #### Enable Proxy Module
 Per default in Centos 7, the proxy modules are already enabled for Apache webserver in ```/etc/httpd/conf.modules.d/00-proxy.conf```. 
-Yet, with SELinux enabled, the httpd needs the permission open network sockets: ```setsebool -P httpd_can_network_connect 1```
+Yet, with SELinux enabled, the httpd needs the permission to open network sockets: ```setsebool -P httpd_can_network_connect 1```
 
 #### Create New Site
 
-We suggest to run a new Virtual Host for the CACTOS proxy. In order to facilitate the configuration of the
+We suggest to run a custom Virtual Host for the CACTOS proxy. In order to facilitate the configuration of the
 web server, this project comes with a config file template for such a virtual host. Copy the file to the 
 apache configuration directory:
 ````
