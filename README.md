@@ -19,20 +19,20 @@ Then, install the files with the following commands.
 ```
 mkdir /opt/cactos
 cd /opt/cactos/
-clone https://github.com/cactos/runtime-user-interface.git
+git clone https://github.com/cactos/runtime-user-interface.git
 ```
 
 ## Proxy Installation and Configuration
 
 This section describes how to prepare the Web Server to host the CACTOS services. It assumes that there is no
-other Apache installation is running on the same machine. In the following, we assume that the serve shall be
-bound to the DNS name ```cactos.example.com``` and port ```8080``` (using http).
+other Apache installation running on the same machine. In the following, we assume that the server shall be
+bound to the DNS name ```cactos.example.com``` and port ```8008``` (using http).
 
 ### Installation of Apache Web Server
 
 We will use the apache web server to host the user interface files and to function as a proxy to
 the downstream services provided CACTOS and used by the user interface. In CentOS 7, the Apache 
-web server can be installed by the following command: 
+web server can be installed and enabled by the following command: 
 ```
 sudo yum -y install httpd
 systemctl enable httpd
@@ -45,8 +45,8 @@ the definition of a new virtual host, and the configuration of CACTOS forwarding
 rules.
 
 #### Enable Proxy Module
-
-TODO:
+Per default in Centos 7, the proxy modules are already enabled for Apache webserver in ```/etc/httpd/conf.modules.d/00-proxy.conf```. 
+Yet, with SELinux enabled, the httpd needs the permission open network sockets: ```setsebool -P httpd_can_network_connect 1```
 
 #### Create New Site
 
@@ -68,8 +68,12 @@ Listen 8008
   Define runtimeController	<set value:8080>
   Define runtimeManagement	<set value:9090>
   Define monitoringService	<set value:8081>	
-  Define colosseumServer	<set value:9000>	
+  Define colosseumServer	<set value:9000>
+  
+  DocumentRoot "/tmp/runtime-user-interface/www"
+  <Directory "/tmp/runtime-user-interface/www">
+...
 ```
 
 Set the value of ```Listen``` the desired port (above, we decided to go for ```8080```). Make sure to adapt the 
-port of the ```VirtualHost``` and the port of the ```ServerName``` accordingly.
+port of the ```VirtualHost``` and the port of the ```ServerName``` accordingly. Update the DocumentRoot to match your checkout location of this repository.
