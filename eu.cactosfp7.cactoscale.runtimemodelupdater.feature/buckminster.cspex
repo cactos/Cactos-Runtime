@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cspecExtension
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0"
+	xmlns="http://www.eclipse.org/buckminster/CSpec-1.0">
+	<dependencies>
+		<dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature" />
+		<dependency name="org.eclipse.emf.cdo" componentType="eclipse.feature" />
+	</dependencies>
+	<generators>
+		<!-- Place your Generators here -->
+	</generators>
+	<artifacts>
+		<!-- Place your Artifacts here -->
+	</artifacts>
+	<actions>
+		<public name="create.product" actor="ant">
+            <actorProperties>
+                <property key="buildFile" value="build/product.ant" />
+                <property key="targets" value="create.product" />
+            </actorProperties>
+            <properties>
+                <property key="profile" value="RuntimeModelUpdaterProfile" />
+                <property key="iu" value="eu.cactosfp7.cactoscale.runtimemodelupdater.product" />
+            </properties>
+            <prerequisites alias="repositories">
+                <attribute name="site.tp" />
+                <attribute name="site.p2" />
+            </prerequisites>
+            <products alias="destination" base="${buckminster.output}">
+                <path path="RuntimeModelUpdater.${target.ws}.${target.os}.${target.arch}/" />
+            </products>
+        </public>
+        <public name="create.product.zip" actor="ant">
+            <actorProperties>
+                <property key="buildFileId" value="buckminster.pdetasks" />
+                <property key="targets" value="create.zip" />
+            </actorProperties>
+            <prerequisites alias="action.requirements">
+                <attribute name="create.product" />
+            </prerequisites>
+            <products alias="action.output" base="${buckminster.output}">
+                <path path="RuntimeModelUpdater.${target.ws}.${target.os}.${target.arch}.zip" />
+            </products>
+        </public>
+        <public name="site.tp" actor="ant">
+            <actorProperties>
+                <property key="buildFile" value="build/product.ant" />
+                <property key="targets" value="create.target.platform.repository" />
+            </actorProperties>
+			<properties>
+                <property key="repository.name" value="RuntimeModelUpdater Update Site" />
+            </properties>
+            <products alias="output" base="${buckminster.output}/site.tp/" />
+        </public>
+    </actions>
+	<groups>
+		<!-- Place your Groups here -->
+	</groups>
+	<alterDependencies>
+		<!-- Place your Dependency alterations here -->
+	</alterDependencies>
+	<alterArtifacts>
+		<!-- Place your Artifact alterations here -->
+	</alterArtifacts>
+	<alterActions>
+		<!-- Place your Action alterations here -->
+	</alterActions>
+	<alterGroups>
+		<!-- Place your Group alterations here -->
+	</alterGroups>
+</cspecExtension>

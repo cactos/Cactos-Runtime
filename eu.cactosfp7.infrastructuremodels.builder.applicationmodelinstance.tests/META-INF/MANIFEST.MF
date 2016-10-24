@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Application Model Instance Builder Tests
+Bundle-SymbolicName: eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CACTOS Consortium
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance;bundle-version="1.0.0",
+ org.junit,
+ eu.cactosfp7.infrastructuremodels

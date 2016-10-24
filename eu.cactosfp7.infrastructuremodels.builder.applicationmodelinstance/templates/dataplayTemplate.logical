@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="ASCII"?>
+<core:LogicalDCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.cactosfp7.eu/LogicalDCModel/Application/1.0" xmlns:core="http://www.cactosfp7.eu/LogicalDCModel/Core/1.0" xmlns:core_1="http://www.cactosfp7.eu/PhysicalDCModel/Core/1.0" xmlns:tools.descartes.dlim="http://descartes.tools/dlim/0.1" id="_onDlkPAXEeW4H40OWqQumg" cyclicOptimizationInterval="60.0s">
+  <virtualNetworks id="_onK6UPAXEeW4H40OWqQumg" name="Single virtual Network Layout"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onH3APAXEeW4H40OWqQumg" name="KvmHypervisor" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onIeEPAXEeW4H40OWqQumg" name="LoadBalancerHttp" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onIeEfAXEeW4H40OWqQumg" name="Frontend" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onIeEvAXEeW4H40OWqQumg" name="Master" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onJFIPAXEeW4H40OWqQumg" name="Cassandra" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onJsMPAXEeW4H40OWqQumg" name="Redis" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onJsMfAXEeW4H40OWqQumg" name="LoadBalancerPgpool" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <volumesAndImages xsi:type="core:VMImage" id="_onJsMvAXEeW4H40OWqQumg" name="Postgresql / DataPlay Permanent Storage" capacity="8.0GB" usedCapacity="5.0GB"/>
+  <applicationTemplates xsi:type="application:WhiteBoxApplicationTemplate" id="_onQZ4PAXEeW4H40OWqQumg" name="DataPlay" userFacingServices="_onUrUPAXEeW4H40OWqQumg">
+    <vmImageConnectors xsi:type="application:ScalableVMImageConnector" id="GAMIFICATION" serviceProvidedRole="_onviEfAXEeW4H40OWqQumg" serviceRequiredRole="_onV5cPAXEeW4H40OWqQumg" autoScalingAnalysisInterval="5.0s" maxInstances="3"/>
+    <vmImageConnectors id="_on-LkPAXEeW4H40OWqQumg" serviceProvidedRole="_onx-VfAXEeW4H40OWqQumg" serviceRequiredRole="_onwJIPAXEeW4H40OWqQumg"/>
+    <vmImageConnectors xsi:type="application:ScalableVMImageConnector" id="MASTER" serviceProvidedRole="_on2PwPAXEeW4H40OWqQumg" serviceRequiredRole="_onylYPAXEeW4H40OWqQumg" autoScalingAnalysisInterval="5.0s" defaultInstances="2" maxInstances="7"/>
+    <vmImageConnectors id="_on-yoPAXEeW4H40OWqQumg" serviceProvidedRole="_on5TEPAXEeW4H40OWqQumg" serviceRequiredRole="_on220fAXEeW4H40OWqQumg"/>
+    <vmImageConnectors id="_on-yofAXEeW4H40OWqQumg" serviceProvidedRole="_on56JfAXEeW4H40OWqQumg" serviceRequiredRole="_on220PAXEeW4H40OWqQumg"/>
+    <vmImageConnectors id="_on-yovAXEeW4H40OWqQumg" serviceProvidedRole="_on3d6fAXEeW4H40OWqQumg" serviceRequiredRole="_on2PwfAXEeW4H40OWqQumg"/>
+    <vmImageConnectors id="_on_ZsPAXEeW4H40OWqQumg" serviceProvidedRole="_on7IQPAXEeW4H40OWqQumg" serviceRequiredRole="_on4E8PAXEeW4H40OWqQumg"/>
+    <whiteBoxUserBehaviourTemplate id="_ooAn0PAXEeW4H40OWqQumg" name="Typical Reference Scenario of DataPlay">
+      <userBehaviours id="_ooB18PAXEeW4H40OWqQumg" name="User Type 01">
+        <controlFlowActions xsi:type="application:StartAction" id="_ooDrIPAXEeW4H40OWqQumg" successingControlFlowAction="_ooDrIfAXEeW4H40OWqQumg"/>
+        <controlFlowActions xsi:type="application:SetVariableAction" id="_ooDrIfAXEeW4H40OWqQumg" successingControlFlowAction="_ooE5QPAXEeW4H40OWqQumg" predecessingControlFlowAction="_ooDrIPAXEeW4H40OWqQumg">
+          <variableAssignments id="_ooDrIvAXEeW4H40OWqQumg" variable="REQUESTBYTESIZE" value="20"/>
+        </controlFlowActions>
+        <controlFlowActions xsi:type="application:ApplicationCallAction" id="_ooE5QPAXEeW4H40OWqQumg" successingControlFlowAction="_ooE5QfAXEeW4H40OWqQumg" predecessingControlFlowAction="_ooDrIfAXEeW4H40OWqQumg" serviceOperationOfProvidedRole="_onN9oPAXEeW4H40OWqQumg" serviceProvidedRole="_onUrUPAXEeW4H40OWqQumg"/>
+        <controlFlowActions xsi:type="application:StopAction" id="_ooE5QfAXEeW4H40OWqQumg" predecessingControlFlowAction="_ooE5QPAXEeW4H40OWqQumg"/>
+        <arrivalRate xsi:type="application:VariableOpenWorkload" id="_GSJ8oiHVEea5BKelJgOa6Q" arrivalRateUnit="ACED00057372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD5267020000787074000173" samplingInterval="1.0s">
+          <arrivalRate name="cactos" terminateAfterTime="3120.0" terminateAfterLoops="1">
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="5.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="8.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="12.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="18.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="20.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="27.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="33.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="38.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="44.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="480.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="50.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="44.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="38.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="33.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="35.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="27.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="20.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="18.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="12.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="8.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+            <sequenceFunctionContainers name="constantSeasonal" duration="120.0">
+              <function xsi:type="tools.descartes.dlim:Constant" constant="5.0">
+                <combine>
+                  <function xsi:type="tools.descartes.dlim:UniformNoise" min="-3.0" max="2.0"/>
+                </combine>
+              </function>
+            </sequenceFunctionContainers>
+          </arrivalRate>
+        </arrivalRate>
+      </userBehaviours>
+    </whiteBoxUserBehaviourTemplate>
+    <composedVMImages id="_onS2IPAXEeW4H40OWqQumg" name="LoadBalancer">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_onUrUPAXEeW4H40OWqQumg" name="Provided_LBFrontend_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_onx-VfAXEeW4H40OWqQumg" name="Provided_LBMaster_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_onV5cPAXEeW4H40OWqQumg" name="Required_LBFrontend_Frontend_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_onylYPAXEeW4H40OWqQumg" name="Required_LBMaster_Master_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_onXuoPAXEeW4H40OWqQumg" vmImage="_onIeEPAXEeW4H40OWqQumg" defaultFlavour="_onFawfAXEeW4H40OWqQumg">
+        <serviceEffects id="_onrQoPAXEeW4H40OWqQumg" forServiceOperation="_onN9oPAXEeW4H40OWqQumg" forServiceProvidedRole="_onUrUPAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_onm_MPAXEeW4H40OWqQumg" successingControlFlowAction="_ondOMPAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_ondOMPAXEeW4H40OWqQumg" successingControlFlowAction="_onnmQPAXEeW4H40OWqQumg" predecessingControlFlowAction="_onm_MPAXEeW4H40OWqQumg">
+            <resourceDemands id="_ongRgPAXEeW4H40OWqQumg" amount="100" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000003E80000000000000001" onResource="_onaK4PAXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:ServiceOperationCallAction" id="_onnmQPAXEeW4H40OWqQumg" successingControlFlowAction="_onqCgPAXEeW4H40OWqQumg" predecessingControlFlowAction="_ondOMPAXEeW4H40OWqQumg" serviceRequiredRole="_onV5cPAXEeW4H40OWqQumg" serviceOperationOfRequiredRole="_onN9oPAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:StopAction" id="_onqCgPAXEeW4H40OWqQumg" predecessingControlFlowAction="_onnmQPAXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <serviceEffects id="_on1os_AXEeW4H40OWqQumg" forServiceOperation="_onN9oPAXEeW4H40OWqQumg" forServiceProvidedRole="_onx-VfAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_on0akvAXEeW4H40OWqQumg" successingControlFlowAction="_on1BoPAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:SetVariableAction" id="_on1BoPAXEeW4H40OWqQumg" successingControlFlowAction="_on0akPAXEeW4H40OWqQumg" predecessingControlFlowAction="_on0akvAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_on0akPAXEeW4H40OWqQumg" successingControlFlowAction="_on1osPAXEeW4H40OWqQumg" predecessingControlFlowAction="_on1BoPAXEeW4H40OWqQumg">
+            <resourceDemands id="_on0akfAXEeW4H40OWqQumg" amount="100" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000003E80000000000000001" onResource="_onaK4PAXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:ServiceOperationCallAction" id="_on1osPAXEeW4H40OWqQumg" successingControlFlowAction="_on1osfAXEeW4H40OWqQumg" predecessingControlFlowAction="_on0akPAXEeW4H40OWqQumg" serviceRequiredRole="_onylYPAXEeW4H40OWqQumg" serviceOperationOfRequiredRole="_onN9oPAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:SetVariableAction" id="_on1osfAXEeW4H40OWqQumg" successingControlFlowAction="_on1osvAXEeW4H40OWqQumg" predecessingControlFlowAction="_on1osPAXEeW4H40OWqQumg">
+            <variableAssignments id="_onzzgPAXEeW4H40OWqQumg" variable="REQUESTBYTESIZE" value="2*REQUEST.BYTESIZE"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:StopAction" id="_on1osvAXEeW4H40OWqQumg" predecessingControlFlowAction="_on1osfAXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_onaK4PAXEeW4H40OWqQumg" name="AMD Opteron Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_onaK4fAXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+    <composedVMImages id="_onviEPAXEeW4H40OWqQumg" name="FrontendNode">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_onviEfAXEeW4H40OWqQumg" name="Provided_Frontend_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_onwJIPAXEeW4H40OWqQumg" name="Required_Frontend_LBMaster_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_onwwMPAXEeW4H40OWqQumg" vmImage="_onIeEfAXEeW4H40OWqQumg" defaultFlavour="_onFawfAXEeW4H40OWqQumg">
+        <serviceEffects id="_onx-U_AXEeW4H40OWqQumg" forServiceOperation="_onN9oPAXEeW4H40OWqQumg" forServiceProvidedRole="_onviEfAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_onx-UPAXEeW4H40OWqQumg" successingControlFlowAction="_onxXQfAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_onxXQfAXEeW4H40OWqQumg" successingControlFlowAction="_onx-UfAXEeW4H40OWqQumg" predecessingControlFlowAction="_onx-UPAXEeW4H40OWqQumg">
+            <resourceDemands id="_onxXQvAXEeW4H40OWqQumg" amount="100" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000003E80000000000000001" onResource="_onwwMfAXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:ServiceOperationCallAction" id="_onx-UfAXEeW4H40OWqQumg" successingControlFlowAction="_onx-UvAXEeW4H40OWqQumg" predecessingControlFlowAction="_onxXQfAXEeW4H40OWqQumg" serviceRequiredRole="_onwJIPAXEeW4H40OWqQumg" serviceOperationOfRequiredRole="_onN9oPAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:StopAction" id="_onx-UvAXEeW4H40OWqQumg" predecessingControlFlowAction="_onx-UfAXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_onwwMfAXEeW4H40OWqQumg" name="AMD Opteron&#xe2;&#x201e;&#xa2; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_onxXQPAXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+    <composedVMImages id="_on1otPAXEeW4H40OWqQumg" name="MasterNode" maximumServableRequests="8">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_on2PwPAXEeW4H40OWqQumg" name="Provided_Master_HTTP" serviceInterface="_onMvgPAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_on2PwfAXEeW4H40OWqQumg" name="Required_Master_Pgpool_SQL" serviceInterface="_onOksfAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_on220PAXEeW4H40OWqQumg" name="Required_Master_Redis_GENERIC" serviceInterface="_onPLwPAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_on220fAXEeW4H40OWqQumg" name="Required_Master_Cassandra_GENERIC" serviceInterface="_onPLwPAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_on220vAXEeW4H40OWqQumg" vmImage="_onIeEvAXEeW4H40OWqQumg" defaultFlavour="_onGB0fAXEeW4H40OWqQumg">
+        <serviceEffects id="_on3d5_AXEeW4H40OWqQumg" forServiceOperation="_onN9oPAXEeW4H40OWqQumg" forServiceProvidedRole="_on2PwPAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_on3d5PAXEeW4H40OWqQumg" successingControlFlowAction="_on3d4fAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_on3d4fAXEeW4H40OWqQumg" successingControlFlowAction="_on3d5fAXEeW4H40OWqQumg" predecessingControlFlowAction="_on3d5PAXEeW4H40OWqQumg">
+            <resourceDemands id="_on3d4vAXEeW4H40OWqQumg" amount="DoublePMF[(492.925304; 0.25)(516.865692; 0.25)(530.710309; 0.25)(519.326957; 0.25)]" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000F42400000000000000001" onResource="_on220_AXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:ServiceOperationCallAction" id="_on3d5fAXEeW4H40OWqQumg" successingControlFlowAction="_on3d5vAXEeW4H40OWqQumg" predecessingControlFlowAction="_on3d4fAXEeW4H40OWqQumg" serviceRequiredRole="_on2PwfAXEeW4H40OWqQumg" serviceOperationOfRequiredRole="_onOksvAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:StopAction" id="_on3d5vAXEeW4H40OWqQumg" predecessingControlFlowAction="_on3d5fAXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_on220_AXEeW4H40OWqQumg" name="AMD Opteron&#xe2;&#x201e;&#xa2; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_on3d4PAXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+    <composedVMImages id="_on3d6PAXEeW4H40OWqQumg" name="PgPool">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_on3d6fAXEeW4H40OWqQumg" name="Provided_LBPgpool_SQL" serviceInterface="_onOksfAXEeW4H40OWqQumg"/>
+      <requiredRoles xsi:type="application:ServiceRequiredRole" id="_on4E8PAXEeW4H40OWqQumg" name="Required_LBPgPool_Postgresql_SQL" serviceInterface="_onOksfAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_on4sAPAXEeW4H40OWqQumg" vmImage="_onJsMfAXEeW4H40OWqQumg" defaultFlavour="_onFawfAXEeW4H40OWqQumg">
+        <serviceEffects id="_on4sCvAXEeW4H40OWqQumg" forServiceOperation="_onOksvAXEeW4H40OWqQumg" forServiceProvidedRole="_on3d6fAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_on4sBfAXEeW4H40OWqQumg" successingControlFlowAction="_on4sBvAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:SetVariableAction" id="_on4sBvAXEeW4H40OWqQumg" successingControlFlowAction="_on4sA_AXEeW4H40OWqQumg" predecessingControlFlowAction="_on4sBfAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_on4sA_AXEeW4H40OWqQumg" successingControlFlowAction="_on4sB_AXEeW4H40OWqQumg" predecessingControlFlowAction="_on4sBvAXEeW4H40OWqQumg">
+            <resourceDemands id="_on4sBPAXEeW4H40OWqQumg" amount="DoublePMF[(30.88007; 0.334)(32.4240735; 0.333)(29.6448672; 0.333)]" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000F42400000000000000001" onResource="_on4sAfAXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:ServiceOperationCallAction" id="_on4sB_AXEeW4H40OWqQumg" successingControlFlowAction="_on4sCPAXEeW4H40OWqQumg" predecessingControlFlowAction="_on4sA_AXEeW4H40OWqQumg" serviceRequiredRole="_on4E8PAXEeW4H40OWqQumg" serviceOperationOfRequiredRole="_onOksvAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:SetVariableAction" id="_on4sCPAXEeW4H40OWqQumg" successingControlFlowAction="_on4sCfAXEeW4H40OWqQumg" predecessingControlFlowAction="_on4sB_AXEeW4H40OWqQumg">
+            <variableAssignments id="_on4E8fAXEeW4H40OWqQumg" variable="REQUESTBYTESIZE" value="70"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:StopAction" id="_on4sCfAXEeW4H40OWqQumg" predecessingControlFlowAction="_on4sCPAXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_on4sAfAXEeW4H40OWqQumg" name="AMD Opteron&#xe2;&#x201e;&#xa2; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_on4sAvAXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+    <composedVMImages id="_on4sC_AXEeW4H40OWqQumg" name="Cassandra">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_on5TEPAXEeW4H40OWqQumg" name="Provided_Cassandra_GENERIC" serviceInterface="_onPLwPAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_on5TEfAXEeW4H40OWqQumg" vmImage="_onJFIPAXEeW4H40OWqQumg" defaultFlavour="_onGo4PAXEeW4H40OWqQumg">
+        <serviceEffects id="_on56I_AXEeW4H40OWqQumg" forServiceOperation="_onPLwfAXEeW4H40OWqQumg" forServiceProvidedRole="_on5TEPAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_on56IfAXEeW4H40OWqQumg" successingControlFlowAction="_on5TFPAXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_on5TFPAXEeW4H40OWqQumg" successingControlFlowAction="_on56IvAXEeW4H40OWqQumg" predecessingControlFlowAction="_on56IfAXEeW4H40OWqQumg">
+            <resourceDemands id="_on5TFfAXEeW4H40OWqQumg" amount="1" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000003E80000000000000001" onResource="_on5TEvAXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:StopAction" id="_on56IvAXEeW4H40OWqQumg" predecessingControlFlowAction="_on5TFPAXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_on5TEvAXEeW4H40OWqQumg" name="AMD Opteron&#xe2;&#x201e;&#xa2; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_on5TE_AXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+    <composedVMImages id="_on56JPAXEeW4H40OWqQumg" name="Redis">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_on56JfAXEeW4H40OWqQumg" name="Provided_Redis_GENERIC" serviceInterface="_onPLwPAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_on6hMPAXEeW4H40OWqQumg" vmImage="_onJsMPAXEeW4H40OWqQumg" defaultFlavour="_onFawPAXEeW4H40OWqQumg">
+        <serviceEffects id="_on6hOPAXEeW4H40OWqQumg" forServiceOperation="_onPLwfAXEeW4H40OWqQumg" forServiceProvidedRole="_on56JfAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_on6hNvAXEeW4H40OWqQumg" successingControlFlowAction="_on6hM_AXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_on6hM_AXEeW4H40OWqQumg" successingControlFlowAction="_on6hN_AXEeW4H40OWqQumg" predecessingControlFlowAction="_on6hNvAXEeW4H40OWqQumg">
+            <resourceDemands id="_on6hNPAXEeW4H40OWqQumg" amount="1" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000003E80000000000000001" onResource="_on6hMfAXEeW4H40OWqQumg"/>
+          </controlFlowActions>
+          <controlFlowActions xsi:type="application:StopAction" id="_on6hN_AXEeW4H40OWqQumg" predecessingControlFlowAction="_on6hM_AXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_on6hMfAXEeW4H40OWqQumg" name="AMD Opteron&#xe2;&#x201e;&#xa2; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_on6hMvAXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+    <composedVMImages id="_on6hOfAXEeW4H40OWqQumg" name="PostgreSql">
+      <providedRoles xsi:type="application:ServiceProvidedRole" id="_on7IQPAXEeW4H40OWqQumg" name="Provided_Postgresql_SQL" serviceInterface="_onOksfAXEeW4H40OWqQumg"/>
+      <vmImageBehaviour id="_on7vUPAXEeW4H40OWqQumg" vmImage="_onJsMvAXEeW4H40OWqQumg" defaultFlavour="_onGo4PAXEeW4H40OWqQumg">
+        <serviceEffects id="_on7vWPAXEeW4H40OWqQumg" forServiceOperation="_onOksvAXEeW4H40OWqQumg" forServiceProvidedRole="_on7IQPAXEeW4H40OWqQumg">
+          <controlFlowActions xsi:type="application:StartAction" id="_on7vVvAXEeW4H40OWqQumg" successingControlFlowAction="_on7vU_AXEeW4H40OWqQumg"/>
+          <controlFlowActions xsi:type="application:ResourceDemandAction" id="_on7vU_AXEeW4H40OWqQumg" successingControlFlowAction="_on7vV_AXEeW4H40OWqQumg" predecessingControlFlowAction="_on7vVvAXEeW4H40OWqQumg">
+            <resourceDemands id="_on7vVPAXEeW4H40OWqQumg" amount="DoublePMF[(741.12168; 0.25)(543.489232; 0.25)(663.921505; 0.25)(790.529792; 0.25)]" unit="ACED0005737200226A617661782E6D6561737572652E756E69742E5472616E73666F726D6564556E697400000000000000010200024C000B5F706172656E74556E69747400194C6A617661782F6D6561737572652F756E69742F556E69743B4C000D5F746F506172656E74556E69747400274C6A617661782F6D6561737572652F636F6E7665727465722F556E6974436F6E7665727465723B7872001E6A617661782E6D6561737572652E756E69742E44657269766564556E69749F6578D133D91866020000787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD52670200007870737200206A617661782E6D6561737572652E756E69742E416C7465726E617465556E697400000000000000010200024C00075F706172656E7471007E00014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B7871007E00037372001E6A617661782E6D6561737572652E756E69742E50726F64756374556E697400000000000000010200024900095F68617368436F64655B00095F656C656D656E74737400295B4C6A617661782F6D6561737572652F756E69742F50726F64756374556E697424456C656D656E743B7871007E000300000000757200295B4C6A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E743B1C0C2BE72EF16818020000787000000001737200266A617661782E6D6561737572652E756E69742E50726F64756374556E697424456C656D656E7400000000000000010200034900045F706F774900055F726F6F744C00055F756E697471007E00017870FFFFFFFF000000017372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C71007E00077871007E000474000173740002487A737200296A617661782E6D6561737572652E636F6E7665727465722E526174696F6E616C436F6E76657274657200000000000000010200024A00095F6469766964656E644A00085F64697669736F72787200256A617661782E6D6561737572652E636F6E7665727465722E556E6974436F6E7665727465726CDC1696D1CC8845020000787000000000000F42400000000000000001" onResource="_on7vUfAXEeW4H40OWqQumg"/>
+            </controlFlowActions>
+          <controlFlowActions xsi:type="application:StopAction" id="_on7vV_AXEeW4H40OWqQumg" predecessingControlFlowAction="_on7vU_AXEeW4H40OWqQumg"/>
+        </serviceEffects>
+        <referenceResourceSpecifications xsi:type="core_1:ProcessingUnitSpecification" id="_on7vUfAXEeW4H40OWqQumg" name="AMD Opteron&#xe2;&#x201e;&#xa2; Processor 6320" frequency="1.4GHz" numberOfCores="4" supportsTurboMode="false">
+          <architectureType href="dataplayTemplate.architecturetype#_dCJp4CVyEeWoe8Y6mDPGVA"/>
+        </referenceResourceSpecifications>
+        <referenceResourceSpecifications xsi:type="core_1:StorageSpecification" id="_on7vUvAXEeW4H40OWqQumg" name="Local HDD" size="220.0GB" readDelay="0.0s" writeDelay="0.0s">
+          <readBandwidth value="560.0(bit/s)*1000000"/>
+          <writeBandwidth value="560.0(bit/s)*1000000"/>
+        </referenceResourceSpecifications>
+      </vmImageBehaviour>
+    </composedVMImages>
+  </applicationTemplates>
+  <serviceInterfaces id="_onMvgPAXEeW4H40OWqQumg" name="http">
+    <serviceOperations id="_onN9oPAXEeW4H40OWqQumg" name="get"/>
+    <serviceOperations id="_onN9ofAXEeW4H40OWqQumg" name="put"/>
+    <serviceOperations id="_onN9ovAXEeW4H40OWqQumg" name="post"/>
+    <serviceOperations id="_onOksPAXEeW4H40OWqQumg" name="delete"/>
+  </serviceInterfaces>
+  <serviceInterfaces id="_onOksfAXEeW4H40OWqQumg" name="sql">
+    <serviceOperations id="_onOksvAXEeW4H40OWqQumg" name="execute"/>
+  </serviceInterfaces>
+  <serviceInterfaces id="_onPLwPAXEeW4H40OWqQumg" name="generic">
+    <serviceOperations id="_onPLwfAXEeW4H40OWqQumg" name="process"/>
+  </serviceInterfaces>
+  <flavours id="_onFawPAXEeW4H40OWqQumg" name="M1.tiny" flavourRefVMI="XXXX-XXXX-XXXX-XXXX" sizeRam="512.0MB" sizeStorage="1.0GB"/>
+  <flavours id="_onFawfAXEeW4H40OWqQumg" name="M1.small" flavourRefVMI="XXXX-XXXX-XXXX-XXYY" sizeRam="2.0GB" sizeStorage="20.0GB"/>
+  <flavours id="_onGB0PAXEeW4H40OWqQumg" name="M1.medium" flavourRefVMI="XXXX-XXXX-XXXX-YYYY" numberVirtualCores="2" sizeRam="4.0GB" sizeStorage="40.0GB"/>
+  <flavours id="_onGB0fAXEeW4H40OWqQumg" name="M1.large" flavourRefVMI="XXXX-XXXX-XXXX-YYZZ" numberVirtualCores="4" sizeRam="8.0GB" sizeStorage="80.0GB"/>
+  <flavours id="_onGo4PAXEeW4H40OWqQumg" name="M1.xlarge" flavourRefVMI="XXXX-XXXX-XXXX-ZZZZ" numberVirtualCores="8" sizeRam="16.0GB" sizeStorage="160.0GB"/>
+</core:LogicalDCModel>

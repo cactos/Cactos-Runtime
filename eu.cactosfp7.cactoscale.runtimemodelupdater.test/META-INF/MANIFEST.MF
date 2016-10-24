@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: eu.cactosfp7.cactoscale.runtimemodelupdater.test
+Bundle-SymbolicName: eu.cactosfp7.cactoscale.runtimemodelupdater.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CACTOS Consortium
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.junit,
+ eu.cactosfp7.cactoscale.runtimemodelupdater;bundle-version="1.0.0"

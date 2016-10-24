@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.cactosfp7.cactoscale.runtimemodelupdater.ApplicationModelLoadBuilderClient">
+   <implementation class="eu.cactosfp7.cactoscale.runtimemodelupdater.ApplicationModelLoadBuilderClient"/>
+   <reference bind="bindService" cardinality="1..1" interface="eu.cactosfp7.infrastructuremodels.builder.applicationmodelload.ApplicationModelLoadBuilder" name="ApplicationModelLoadBuilder" policy="static" unbind="unbindService"/>
+</scr:component>

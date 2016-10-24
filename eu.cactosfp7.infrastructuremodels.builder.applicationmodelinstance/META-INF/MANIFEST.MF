@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Builder
+Bundle-SymbolicName: eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance.Activator
+Import-Package: org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance,
+ eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance.impl,
+ eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance.util
+Service-Component: OSGI-INF/applicationmodelinstancebuilder.xml
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: eu.cactosfp7.optimisationplan,
+ org.palladiosimulator.commons,
+ eu.cactosfp7.cdosessionclient

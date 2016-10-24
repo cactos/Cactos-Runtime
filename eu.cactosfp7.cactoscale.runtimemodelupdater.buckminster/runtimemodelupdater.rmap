@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:locator pattern="^eu\.cactosfp7\.infrastructuremodels.*" searchPathRef="CactosInfrastructureModels" failOnError="false"/>
+  <rm:locator pattern="^eu\.cactosfp7\.infrastructuremodels\.builder.*" searchPathRef="CactosIntegration" failOnError="false"/>
+  <rm:locator pattern="^JScience.*" searchPathRef="CactosInfrastructureModels" failOnError="false"/>
+  <rm:locator pattern="^eu\.cactosfp7\.optimisationplan.*" searchPathRef="CactosOptimisationPlan" failOnError="false"/>
+  <rm:locator pattern="^eu\.cactosfp7\.cactoscale\.runtimemodelupdater.*" searchPathRef="RuntimeModelUpdater" failOnError="false"/>
+  <rm:locator pattern="^eu\.cactosfp7\.cdosession.*" searchPathRef="CactosIntegration" failOnError="false"/>
+  <rm:locator pattern="^eu\.cactosfp7\.cdosessionclient.*" searchPathRef="CactosIntegration" failOnError="false"/>
+  <rm:locator pattern="^Log4JProperties.*" searchPathRef="CactosIntegration" failOnError="false"/>
+  <rm:locator pattern="^HBaseClient.*" searchPathRef="RuntimeModelUpdater" failOnError="false"/>
+  <rm:locator pattern="^org\.apache\.felix\.fileinstall.*" searchPathRef="configadminservice" failOnError="false"/>
+  <rm:locator pattern="^org\.apache\.felix.*" searchPathRef="ApacheFelix"/>
+  <rm:locator pattern="^org\.apache\.log4j*" searchPathRef="mwe"/>
+  <rm:locator pattern="^eu\.cactosfp7\.identifier*" searchPathRef="CactosInfrastructureModels"/>
+  <rm:locator pattern="^tools.descartes.dlim.*" searchPathRef="Limbo" failOnError="false"/>
+  <rm:locator pattern="^com\.google\.guava.*" searchPathRef="ApacheFelix"/>
+  <rm:locator pattern="^eu\.cactosfp7\.configuration*" searchPathRef="CactosIntegration"/>
+  <rm:redirect pattern=".*" href="https://anonymous:anonymous@svn.fzi.de/svn/cactos/code/opt/trunk/eu.cactosfp7.toolkit.buckminster/toolkit.rmap"/>
+  <rm:searchPath name="configadminservice">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/integration/trunk/configadminservice#{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="CactosInfrastructureModels">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/cactos/infrastructuremodels/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="CactosOptimisationPlan">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/cactos/optimisationplan/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="RuntimeModelUpdater">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/scale/trunk#{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="CactosIntegration">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn">
+      <rm:uri format="https://cactosbuild:fA8qXqNwNQLoLuc6@svn.fzi.de/svn/cactos/code/integration/trunk#{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="SDQ_Commons">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/commons/nightly"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="mwe">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="Limbo">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://se2.informatik.uni-wuerzburg.de/eclipse/limbo/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="ApacheFelix">
+    <rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://repo1.maven.org/maven2/"/>
+      <maven:mappings>
+        <maven:entry artifactId="org.apache.felix.metatype" groupId="org.apache.felix" name="org.apache.felix.metatype"/>
+        <maven:entry artifactId="guava" groupId="com.google.guava" name="com.google.guava"/>
+        <maven:entry artifactId="org.apache.felix.gogo.command" groupId="org.apache.felix" name="org.apache.felix.gogo.command"/>
+        <maven:entry artifactId="component org.apache.felix.gogo.shell" groupId="org.apache.felix" name="component org.apache.felix.gogo.shell"/>
+        <maven:entry artifactId="org.apache.felix.gogo.runtime" groupId="org.apache.felix" name="org.apache.felix.gogo.runtime"/>
+        <maven:entry artifactId="org.apache.felix.gogo.shell" groupId="org.apache.felix" name="org.apache.felix.gogo.shell"/>
+        <maven:entry artifactId="org.apache.felix.fileinstall" groupId="org.apache.felix" name="org.apache.felix.fileinstall"/>
+      </maven:mappings>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

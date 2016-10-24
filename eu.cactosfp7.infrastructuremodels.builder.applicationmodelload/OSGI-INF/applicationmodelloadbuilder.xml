@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.cactosfp7.infrastructuremodels.builder.applicationmodelload.impl.ApplicationModelLoadBuilderUtil">    
+   <implementation class="eu.cactosfp7.infrastructuremodels.builder.applicationmodelload.impl.ApplicationModelLoadBuilderUtil"/>
+   <service>
+      <provide interface="eu.cactosfp7.infrastructuremodels.builder.applicationmodelload.ApplicationModelLoadBuilder"/>
+   </service>
+</scr:component>

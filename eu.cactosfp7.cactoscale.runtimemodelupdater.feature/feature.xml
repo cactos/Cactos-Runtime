@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"
+      label="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"
+      version="3.0.0.qualifier"
+      provider-name="CACTOS Consortium">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <includes
+         id="eu.cactosfp7.infrastructuremodels.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="eu.cactosfp7.optimisationplan.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="eu.cactosfp7.infrastructuremodels" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="eu.cactosfp7.optimisationplan" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.cdo" version="4.4.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.net4j" version="4.4.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.net4j.tcp" version="4.1.300" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.cdo.net4j" version="4.1.300" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.osgi.services" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.cm" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.felix.fileinstall" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.felix.gogo.command" version="0.10.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.felix.gogo.runtime" version="0.10.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.felix.gogo.shell" version="0.10.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.console" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="eu.cactosfp7.cdosession" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.ds" version="1.4.200" match="greaterOrEqual"/>
+      <import plugin="HBaseClient" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="eu.cactosfp7.cdosessionclient" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="eu.cactosfp7.infrastructuremodels.builder.applicationmodelload" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.apache.log4j" version="1.2.15.v201012070815" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="eu.cactosfp7.cactoscale.runtimemodelupdater"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.cactosfp7.cdosession"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.cactosfp7.cdosessionclient"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="HBaseClient"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="Log4JProperties"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.ds"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.cactosfp7.configuration"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.cm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.felix.fileinstall"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.palladiosimulator.commons"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.cactosfp7.infrastructuremodels.builder.applicationmodelload"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<architecturetype:ArchitectureTypeRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:architecturetype="http://www.cactosfp7.eu/PhysicalDCModel/ArchitectureType/1.0">
+  <architectureTypes id="_dCJp4CVyEeWoe8Y6mDPGVA" name="x86 (generic)"/>
+</architecturetype:ArchitectureTypeRepository>

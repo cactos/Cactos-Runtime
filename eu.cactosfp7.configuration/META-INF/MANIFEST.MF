@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Configuration
+Bundle-SymbolicName: eu.cactosfp7.configuration
+Bundle-Version: 1.0.0.qualifier

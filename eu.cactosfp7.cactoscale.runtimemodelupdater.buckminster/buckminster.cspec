@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><cs:cspec xmlns:cs="http://www.eclipse.org/buckminster/CSpec-1.0" name="eu.cactosfp7.cactoscale.runtimemodelupdater.buckminster" componentType="eclipse.feature" version="1.0.0.qualifier">
+    <cs:dependencies>
+        <cs:dependency name="eu.cactosfp7.cactoscale.runtimemodelupdater.feature" componentType="eclipse.feature"/>
+        <cs:dependency name="eu.cactosfp7.cactoscale.runtimemodelupdater.test" componentType="osgi.bundle"/>
+        <cs:dependency name="org.eclipse.emf.cdo" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature"/>
+    </cs:dependencies>
+    <cs:generators>
+        <cs:generator generates="eu.cactosfp7.cactoscale.runtimemodelupdater.buckminster.source" attribute="source.feature.jar" generatesType="eclipse.feature"/>
+    </cs:generators>
+    <cs:artifacts>
+        <cs:private name="bin.includes">
+            <cs:path path="runtimemodelupdater.cquery"/>
+            <cs:path path=".project"/>
+            <cs:path path="runtimemodelupdater.rmap"/>
+            <cs:path path=".svn/"/>
+        </cs:private>
+        <cs:private name="raw.manifest" path="feature.xml"/>
+    </cs:artifacts>
+    <cs:actions>
+        <cs:public name="buckminster.clean" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="delete.dir"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="dir.to.delete" value="${buckminster.output}/"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="buckminster.clean" component="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"/>
+                <cs:attribute name="buckminster.clean" component="eu.cactosfp7.cactoscale.runtimemodelupdater.test"/>
+            </cs:prerequisites>
+        </cs:public>
+        <cs:public name="manifest" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="expand.feature.version"/>
+            </cs:actorProperties>
+            <cs:prerequisites>
+                <cs:attribute name="raw.manifest" alias="manifest"/>
+                <cs:attribute name="bundle.jars" alias="bundles"/>
+                <cs:attribute name="feature.references" alias="features"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/temp/manifest/">
+                <cs:path path="feature.xml"/>
+            </cs:products>
+        </cs:public>
+        <cs:public name="site.p2" actor="p2SiteGenerator">
+            <cs:prerequisites>
+                <cs:attribute name="site.feature.exports" alias="site" filter="(&amp;(!(site.pack200=true))(!(site.signing=true)))"/>
+                <cs:attribute name="site.packed" alias="site" filter="(site.pack200=true)"/>
+                <cs:attribute name="site.signed" alias="site" filter="(&amp;(site.signing=true)(!(site.pack200=true)))"/>
+                <cs:attribute name="manifest" alias="site.definer"/>
+                <cs:attribute name="product.configuration.exports" alias="product.configs"/>
+            </cs:prerequisites>
+            <cs:products base="${buckminster.output}/site.p2/" upToDatePolicy="ACTOR"/>
+        </cs:public>
+        <cs:public name="site.p2.zip" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="create.site.zip"/>
+            </cs:actorProperties>
+            <cs:prerequisites>
+                <cs:attribute name="manifest" alias="manifest"/>
+                <cs:attribute name="site.p2" alias="action.requirements"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/site.p2.zip/" fileCount="1" upToDatePolicy="COUNT"/>
+        </cs:public>
+        <cs:public name="site.packed" actor="jarProcessor">
+            <cs:properties>
+                <cs:property key="command" value="pack"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.feature.exports" alias="jar.folder" filter="(!(site.signing=true))"/>
+                <cs:attribute name="site.signed" alias="jar.folder" filter="(site.signing=true)"/>
+            </cs:prerequisites>
+            <cs:products base="${buckminster.output}/site.packed/" upToDatePolicy="MAPPER"/>
+        </cs:public>
+        <cs:public name="site.signed" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.signing"/>
+                <cs:property key="targets" value="sign.jars"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="site.repacked" filter="(site.pack200=true)"/>
+                <cs:attribute name="site.feature.exports" filter="(!(site.pack200=true))"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/site.signed/" upToDatePolicy="MAPPER"/>
+        </cs:public>
+        <cs:public name="source.manifest.with.localization" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="create.source.feature"/>
+            </cs:actorProperties>
+            <cs:prerequisites>
+                <cs:attribute name="bin.includes" alias="translations"/>
+                <cs:attribute name="manifest" alias="manifest"/>
+                <cs:attribute name="source.bundle.jars" alias="bundles"/>
+                <cs:attribute name="source.feature.references" alias="features"/>
+            </cs:prerequisites>
+            <cs:products>
+                <cs:public name="source.manifest" path="feature.xml" base="${buckminster.output}/temp/source/" alias="action.output"/>
+                <cs:public name="source.localization" path="feature.properties" base="${buckminster.output}/temp/source/"/>
+            </cs:products>
+        </cs:public>
+        <cs:private name="copy.features" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="copy.group"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="feature.jars"/>
+                <cs:attribute name="source.feature.jars"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/site/features/" upToDatePolicy="MAPPER"/>
+        </cs:private>
+        <cs:private name="copy.plugins" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="copy.group"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="bundle.jars"/>
+                <cs:attribute name="source.bundle.jars"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/site/plugins/" upToDatePolicy="MAPPER"/>
+        </cs:private>
+        <cs:private name="copy.subfeatures" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="copy.group"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="feature.references"/>
+                <cs:attribute name="source.feature.references"/>
+                <cs:attribute name="feature.jar" filter="(site.include.top=true)"/>
+                <cs:attribute name="source.feature.jar" filter="(&amp;(site.include.top=true)(!(cbi.include.source=false)))"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/site/features/" upToDatePolicy="MAPPER"/>
+        </cs:private>
+        <cs:private name="feature.jar" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="create.feature.jar"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="manifest" alias="manifest"/>
+                <cs:attribute name="jar.contents"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/jar/" fileCount="1" upToDatePolicy="COUNT"/>
+        </cs:private>
+        <cs:private name="site.repacked" actor="jarProcessor">
+            <cs:properties>
+                <cs:property key="command" value="repack"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="site.feature.exports" alias="jar.folder"/>
+            </cs:prerequisites>
+            <cs:products base="${buckminster.output}/site.repacked/" upToDatePolicy="MAPPER"/>
+        </cs:private>
+        <cs:private name="source.feature.jar" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="create.feature.jar"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="source.manifest" alias="manifest"/>
+                <cs:attribute name="src.includes"/>
+                <cs:attribute name="source.localization" alias="source.localization"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${buckminster.output}/source.jar/" fileCount="1" upToDatePolicy="COUNT"/>
+        </cs:private>
+        <cs:private name="src.includes" actor="copy">
+            <cs:properties>
+                <cs:property key="excludes" value="feature.properties"/>
+            </cs:properties>
+            <cs:prerequisites>
+                <cs:attribute name="bin.includes"/>
+            </cs:prerequisites>
+            <cs:products base="${buckminster.output}/src.includes/"/>
+        </cs:private>
+    </cs:actions>
+    <cs:groups>
+        <cs:public name="bundle.jars">
+            <cs:attribute name="bundle.jars" component="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"/>
+            <cs:attribute name="bundle.and.fragments" component="eu.cactosfp7.cactoscale.runtimemodelupdater.test"/>
+        </cs:public>
+        <cs:public name="feature.exports" rebase="${buckminster.output}/site/">
+            <cs:attribute name="copy.features"/>
+            <cs:attribute name="copy.plugins"/>
+        </cs:public>
+        <cs:public name="feature.jars">
+            <cs:attribute name="feature.jar"/>
+            <cs:attribute name="feature.references"/>
+        </cs:public>
+        <cs:public name="feature.references">
+            <cs:attribute name="feature.jars" component="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"/>
+        </cs:public>
+        <cs:public name="jar.contents">
+            <cs:attribute name="bin.includes"/>
+            <cs:attribute name="manifest"/>
+        </cs:public>
+        <cs:public name="product.configuration.exports">
+            <cs:attribute name="product.configuration.exports" component="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"/>
+            <cs:attribute name="product.configuration.exports" component="eu.cactosfp7.cactoscale.runtimemodelupdater.test"/>
+        </cs:public>
+        <cs:public name="site.feature.exports" rebase="${buckminster.output}/site/">
+            <cs:attribute name="copy.subfeatures"/>
+            <cs:attribute name="copy.plugins"/>
+        </cs:public>
+        <cs:public name="source.bundle.jars" filter="(!(cbi.include.source=false))">
+            <cs:attribute name="source.bundle.jars" component="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"/>
+            <cs:attribute name="bundle.and.fragments.source" component="eu.cactosfp7.cactoscale.runtimemodelupdater.test"/>
+        </cs:public>
+        <cs:public name="source.feature.jars" filter="(!(cbi.include.source=false))">
+            <cs:attribute name="source.feature.jar"/>
+            <cs:attribute name="source.feature.references"/>
+        </cs:public>
+        <cs:public name="source.feature.references" filter="(!(cbi.include.source=false))">
+            <cs:attribute name="source.feature.jars" component="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"/>
+        </cs:public>
+    </cs:groups>
+</cs:cspec>

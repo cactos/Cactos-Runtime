@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="eu.cactosfp7.cactoscale.runtimemodelupdater.buckminster"
+      label="eu.cactosfp7.cactoscale.runtimemodelupdater.buckminster"
+      version="3.0.0.qualifier"
+      provider-name="CACTOS Consortium">
+
+   <url>
+      <discovery label="Infrastructure Models" url="https://sdqweb.ipd.kit.edu/eclipse/cactos/infrastructuremodels/nightly/"/>
+      <discovery label="Optimisation Plan" url="https://sdqweb.ipd.kit.edu/eclipse/cactos/optimisationplan/nightly/"/>
+   </url>
+
+   <includes
+         id="eu.cactosfp7.cactoscale.runtimemodelupdater.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.junit"/>
+      <import plugin="eu.cactosfp7.cactoscale.runtimemodelupdater" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="eu.cactosfp7.cactoscale.runtimemodelupdater.test"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
