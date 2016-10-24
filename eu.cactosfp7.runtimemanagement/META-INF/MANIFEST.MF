@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Runtime Management
+Bundle-SymbolicName: eu.cactosfp7.runtimemanagement
+Bundle-Version: 2.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: eu.cactosfp7.runtimemanagement,
+ eu.cactosfp7.runtimemanagement.service
+Bundle-Vendor: CACTOS Consortium
+Require-Bundle: JScience;bundle-version="4.3.1"

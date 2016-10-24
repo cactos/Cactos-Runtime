@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.cactosfp7.vmi.controller.service.VMIServiceImpl">
+   <implementation class="eu.cactosfp7.vmi.controller.openstack.VMIServiceImpl"/>
+   <property name="service.pid" type="String" value="integration_ipmiproxy"/>
+   <service>
+	  <provide interface="org.osgi.service.cm.ManagedService"/>
+      <provide interface="eu.cactosfp7.vmi.controller.IVMIService"/>
+   </service>
+</scr:component>

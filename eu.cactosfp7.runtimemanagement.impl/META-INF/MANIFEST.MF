@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Runtimemanagement
+Bundle-SymbolicName: eu.cactosfp7.runtimemanagement.impl
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: eu.cactosfp7.runtimemanagement.impl.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/vmicontroller.xml, OSGI-INF/runtimemanagement.xml, OSGI-INF/placement.xml, OSGI-INF/behaviourinferencealgorithm.xml
+Require-Bundle: eu.cactosfp7.infrastructuremodels,
+ eu.cactosfp7.vmi.controller,
+ eu.cactosfp7.infrastructuremodels.util,
+ eu.cactosfp7.cdosession;visibility:=reexport,
+ eu.cactosfp7.cdosessionclient;visibility:=reexport,
+ eu.cactosfp7.cactoopt.placementservice.registry,
+ eu.cactosfp7.cactoopt.behaviourinference.registry;bundle-version="1.0.0",
+ eu.cactosfp7.runtimemanagement;bundle-version="1.0.0"
+Export-Package: eu.cactosfp7.runtimemanagement.util

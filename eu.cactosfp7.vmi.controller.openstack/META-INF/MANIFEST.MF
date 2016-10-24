@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: eu.cactosfp7.vmi.controller.openstack
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: eu.cactosfp7.runtimemanagement.impl,
+ eu.cactosfp7.optimisationplan,
+ org.eclipse.emf.cdo.net4j,
+ org.eclipse.net4j.tcp,
+ org.eclipse.osgi.services,
+ org.eclipse.osgi,
+ eu.cactosfp7.cdosessionclient,
+ eu.cactosfp7.ossessionclient,
+ eu.cactosfp7.vmi.controller,
+ os4j.openstack4j,
+ com.google.gson,
+ eu.cactosfp7.ossession,
+ org.eclipse.equinox.cm,
+ eu.cactosfp7.infrastructuremodels.builder.applicationmodelinstance,
+ eu.cactosfp7.cloudiator;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/vmicontroller.xml, OSGI-INF/applicationmodelinstancebuilder.xml
+Bundle-Vendor: %providerName 

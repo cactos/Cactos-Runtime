@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: eu.cactosfp7.vmi.controller
+Bundle-SymbolicName: eu.cactosfp7.vmi.controller
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: eu.cactosfp7.optimisationplan
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.cactosfp7.vmi.controller
+Bundle-Vendor: CACTOS Consortium
