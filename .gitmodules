@@ -1,0 +1,3 @@
+[submodule "cdo"]
+	path = cdo
+	url = https://github.com/cactos/cdo
