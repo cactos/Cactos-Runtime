@@ -1,0 +1,57 @@
+<h5>Create or Edit Metric ({{$ctrl.computenodename}}):</h5>
+
+<form ng-submit="$ctrl.saveMetric()">
+  <label>
+    name:
+    <input type="text" readonly ng-model="$ctrl.formMetric.metric.metricName" name="name">
+    </input>
+  </label>
+
+  <label>
+	  type: <span ng-repeat="toption in $ctrl.available.types">{{toption.name}}
+		<input type="radio" ng-model="$ctrl.formMetric.metric['@type']" 
+		      name="sensorType" value="{{toption.value}}"/>
+  </label> 
+  
+  <label>
+    sensor:
+    <select style="width:100px" ng-model="$ctrl.formMetric.metric.sensorClassName" name="sensor">
+	    <option ng-repeat="soption in $ctrl.available.sensors" 
+	     value="{{soption['value']}}">{{soption['name']}}</option> 
+    </select>
+  </label>
+  
+  <label>
+    interval period:
+    <input style="width:50px" type="number" min="1" ng-model="$ctrl.formMetric.metric.interval['period']"
+    name="period" />
+  </label>
+
+  <label>
+    interval unit:
+    <select style="width:100px" ng-model="$ctrl.formMetric.metric.interval['timeUnit']" name="unit">
+            <option ng-repeat="toption in $ctrl.available.units" 
+		    value="{{toption['value']}}">{{toption['name']}}</option>
+    </select>
+  </label>
+
+  <label>
+    sensor configuration: <br/>
+    <div>
+	    <ul>
+		    <li ng-repeat="(key, value) in
+		    $ctrl.formMetric.metric.sensorConfiguration">{{key}} := {{value}}
+    			<input type="button" class="btn" value="delete"
+			ng-click="$ctrl.deleteSensorConfig(key)">
+		    </li>
+	    </ul>
+    </div>
+    key: <input style="width:100px" type="text" ng-model="$ctrl.tempKV['key']"/> 
+    value: <input type="text" style="width:100px" ng-model="$ctrl.tempKV['value']"/>
+    <input type="button" class="btn" value="add" ng-click="$ctrl.addTempKV()">
+  </label>
+  
+  <input type="submit" class="btn btn-primary" value="Save">
+  <input type="button" class="btn" ng-click="$ctrl.clearForm()" value="Clear">
+</form>
+

@@ -1,0 +1,51 @@
+<!--
+ ! Excerpted from "Seven Web Frameworks in Seven Weeks",
+ ! published by The Pragmatic Bookshelf.
+ ! Copyrights apply to this code. It may not be used to create training material, 
+ ! courses, books, articles, and the like. Contact us if you are in doubt.
+ ! We make no guarantees that this code is fit for any purpose. 
+ ! Visit http://www.pragmaticprogrammer.com/titles/7web for more book information.
+-->
+Metric:
+<form ng-submit="saveMetric(formMetric.metric)">
+
+  <label>
+    name:
+    <input type="text" ng-model="formMetric.metric.name" name="name"/>
+  </label>
+
+  <label>
+  	type: sensor <input type="radio" ng-model="formMetric.metric.type" name="type"
+	value="sensor">
+  	<input type="radio" ng-model="formMetric.metric.type" name="type"
+	value="nosensor">
+  </label> 
+  
+  <label>
+    sensor:
+    <select ng-model="formMetric.metric.sensorClass" name="sensor">
+	    <option ng-selected="true"
+	     value="de.uniulm.omi.cloudiator.visor.sensors.SystemCpuUsageSensor">CPU</option>
+	    <option 
+	     value="de.uniulm.omi.cloudiator.visor.sensors.SystemRamUsageSensor">RAM</option>
+    </select>
+  </label>
+  
+  <label>
+    interval period:
+    <input type="number" min="1" ng-model="formMetric.metric.interval['period']"
+    name="period" ng-init="formMetric.metric.interval['period']"/>
+  </label>
+
+  <label>
+    interval unit:
+    <select ng-model="formMetric.metric.interval['unit']" name="unit">
+	    <option ng-selected="true" value="SECONDS">seconds</option>
+	    <option value="MINUTES">minutes</option>
+	    <option value="HOURS">hours</option>
+    </select>
+  </label>
+  
+  <input type="submit" class="btn btn-primary" value="Save">
+  <input type="button" class="btn" ng-click="clearForm()" value="Clear">
+</form>

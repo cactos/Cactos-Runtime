@@ -1,0 +1,51 @@
+<div class="abc">
+	<div>
+		<h4>Configuration for Placement Algorithm</h4>
+			<b>current: {{$ctrl.placement.current}}</b>
+		<form ng-submit="$ctrl.saveConfiguration('placement')">
+		<label>placement:
+			<select ng-model="$ctrl.placement.selection['main']"
+					ng-change="$ctrl.changeSubConfig('placement', '')">
+				<option value="{{opt['option']}}"
+					ng-repeat="opt in $ctrl.placement.options">
+					{{opt['name']}}
+				</option>
+
+				<p ng-repeat="opt in $ctrl.placement.options">
+				{{opt}}
+				</p>
+			</select>
+			<sub-config-options
+	   			on-change="$ctrl.changeSubConfig(type, value)"
+       				sub-config-prefix="'placement'"
+	     			sub-config="($ctrl.placement.options |
+				filter:{option: $ctrl.placement.selection.main})[0]['sub-config']"
+       				parent-config="$ctrl.placement.selection.main"
+				>
+			</sub-config-optionis>
+		</label>
+		<input type="submit" value="set placement config"/>
+		</form>
+		<hr/>
+		<h4>Configuration for Optimisation Algorithm</h4>
+			<b>current: {{$ctrl.optimisation.current}}</b>
+		<form ng-submit="$ctrl.saveConfiguration('optimisation')">
+		<label>optimisation: 
+			<select ng-model="$ctrl.optimisation.selection['main']"
+					ng-change="$ctrl.changeSubConfig('optimisation', '')">
+				<option value="{{opt['option']}}"
+					ng-repeat="opt in $ctrl.optimisation.options">
+					{{opt['name']}}
+			</select>
+			<sub-config-options 
+     			     on-change="$ctrl.changeSubConfig(type, value)"
+     			     parent-config="$ctrl.optimisation.selection.main"
+	     			sub-config="($ctrl.optimisation.options |
+				filter:{option: $ctrl.optimisation.selection.main})[0]['sub-config']"
+				sub-config-prefix="'optimisation'">
+			</sub-config-options>
+		</label>
+		<input type="submit" value="set opt config"/>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,92 @@
+<div>
+	<h5>Application overview: {{$ctrl.applicationName}}</h5>
+	<div>
+		<h6>Instantiate new <i>{{$ctrl.applicationName}}</i> application</h6>
+		<div>
+		<form ng-submit="$ctrl.deployApplication()">
+			<div ng-repeat="component in $ctrl.deployment.components">
+				<div>
+					<div class="componentName"> 
+						<b>{{component['name']}}</b>
+					</div>
+					<span>
+						<label style="display:inline">instances:
+							<!-- todo read min/max from properties -->
+							{{alert($ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'])}}
+						<input style="width:50px" type="number"
+				min="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'] || 1}}" 
+				max="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['maxInstances'] || ''}}"
+			   ng-model="component['instances']"> </label>
+   					</span><span>
+						<label style="display:inline">vm: 
+							<select 
+								ng-model="component['idHardware']">
+								<option
+									ng-repeat="flavourInfo in $ctrl.deployment.flavours"
+	 value="{{flavourInfo['id']}}">
+								{{flavourInfo['offer']['numberOfCores']}} core(s),
+								{{flavourInfo['offer']['mbOfRam'] > 1024 ?
+									((flavourInfo['offer']['mbOfRam']/1000 | number : 0) + ' GB'):
+									(flavourInfo['offer']['mbOfRam'] + ' MB')}} memory
+							</select>
+					</label>
+					<label style="display:inline">image:
+						<select ng-model="component['idImage']">
+							<option ng-repeat="image in
+							$ctrl.images | filter:{name :
+							$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['images']}"
+	       ng-value="$ctrl.getId(image)" >
+							{{image.name}}
+							</option>
+						</select>
+					</label>
+					</span>
+					<span>
+						<span ng-repeat="metafield in $ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">
+							<label style="display:inline">{{metafield['name']}}
+								<select ng-model="component[metafield.property_name]" style="width:150px">
+									<option ng-repeat="metaoption in metafield.options" value="{{metaoption.value}}"/>{{metaoption.name}}</option>
+								</select>
+							</label>
+					</span>
+				</div>
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary" value="deploy">
+				<input type="button" class="btn" ng-click="$ctrl.clearForm()" value="clear">
+			</div>
+		</form>
+		</div>
+	</div>
+	<hr>
+	<div>
+		<h6>Instances of <i>{{$ctrl.applicationName}}</i> Application</h6>
+		<div class="appInstance" ng-repeat="appInstance in
+		$ctrl.appInstances | filter:{application : $ctrl.applicationId}">
+			<b>application Instance {{$index}} (id {{$ctrl.getId(appInstance)}})</b>
+
+			<div class="compInstanceGroup" 
+				ng-repeat="component in $ctrl.appComponents | filter:{application:
+								appInstance.application}">
+				<b>instances of 
+					<i>{{$ctrl.findLcComponentName(component.component)}}</i>
+					(id: {{$ctrl.getId(component)}})
+				</b>
+				appInstId: {{$ctrl.getId(appInstance)}}
+				appComponent: {{$ctrl.getIdAsInt(component)}}
+				<div class="compInstance" 
+					ng-repeat="compInstance in $ctrl.appCompInstances |
+					filter:{applicationInstance: $ctrl.getIdAsInt(appInstance),
+						applicationComponent: $ctrl.getIdAsInt(component),
+					}:true">
+					<i>{{$ctrl.getId(compInstance)}}:</i>
+					{{compInstance['remoteState']}}
+					{{(compInstance['remoteState'] === "OK") ?
+						$ctrl.findIpAddress(compInstance) :
+						""}}
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>
+</div>

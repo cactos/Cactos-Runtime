@@ -1,0 +1,17 @@
+<div class="abc">
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <ul class="nav">
+	    <li>
+		<a href="/"><img src="/images/cactos_logo.png" style="width:90px;height:90"/></a>
+	    </li>
+	    <li ng-repeat="(key, value) in $ctrl.globalConfig['config']">
+		<a ng-if="value.status === 'on'" href="{{$ctrl.globalConfig['static'][key].path}}">
+			  {{$ctrl.globalConfig['static'][key].name}}
+			</a>
+		<a ng-if="value.status !== 'on'">{{$ctrl.globalConfig['static'][key].name}}</a>
+	   </li>
+        </ul>
+      </div>
+    </div>
+</div>
