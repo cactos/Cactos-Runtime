@@ -3,16 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>Visor Controller App</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- cactos gui resources -->
+    <link rel="stylesheet" type="text/css" href="/static/reset.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
+    <script type="text/javascript" src="/static/helper.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
   </head>
   <body>
   <script src="http://www.w3schools.com/lib/w3data.js"></script>
   <index-list-component></index-list-component>
 
+
     <div class="container">
       <div class="row">
         <div class="span12">
-          <h1>CactoOpt Configuration</h1>
+          <h1 style="margin-top:100px; !important">CactoOpt Configuration</h1>
           <hr>
 	  <config-options></config-options>
         </div>

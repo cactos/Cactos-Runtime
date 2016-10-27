@@ -3,11 +3,16 @@ angular.module('indexList').controller('IndexListController', function($scope, $
 	$scope.metric = {};
 	var self = this;
 	this.globalConfig = $resource('/api/global/config').get({}, {}, function(res){
-			$scope.values.metricUri = self.globalConfig['config']['metrics']['url'];
+
+			if(self.globalConfig['config']['metrics']['status'] == 'on'){
+				$scope.values.metricUri = self.globalConfig['config']['metrics']['url'];
+			}
+
 	});
 
 	$scope.values = {};
 	$scope.values.metricUri = "";
+	
 });
 
 angular.module('indexList').component('indexListComponent', {

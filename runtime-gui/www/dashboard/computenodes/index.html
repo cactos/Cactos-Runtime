@@ -1,14 +1,21 @@
 <!doctype html>
-<html lang="en" ng-app="indexList">
-  <head>
+<html lang="en" ng-app="computenodes">
+<head>
+    </body>
     <script src="/lib/sugar/sugar-1.3.9.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-resource/angular-resource.js"></script>
-    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/global/global.module.js"></script>
     <script src="/global/global.component.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
 
+    <!-- angular app -->
+    <script src="/dashboard/computenodes/app.js"></script>
+
+
+
+
+    <!-- cactos gui resources -->
     <link rel="stylesheet" type="text/css" href="/static/reset.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
@@ -25,17 +32,30 @@
 
     <link rel="stylesheet" type="text/css" href="/static/styles.css">
 
+    <!-- cactos gui specific js -->
+    <script type="text/javascript" src="/static/computenodes.js"></script>
 
+
+    <!-- title -->
     <meta charset="utf-8">
-    <title>Visor Controller App</title>
+    <title>Cluster Overview</title>
 
-  </head>
-  <body>
-  <script src="http://www.w3schools.com/lib/w3data.js"></script>
-  
-  <index-list-component></index-list-component>
-
-  <p>select a view</p>
+</head>
+<body>
+<script src="http://www.w3schools.com/lib/w3data.js"></script>
+<index-list-component></index-list-component>
 
 
+<div>
+
+    <div ng-controller="ComputenodesController">
+
+        <computenodes-overview></computenodes-overview>
+
+    </div>
+
+</div>
+
+</body>
 </html>
+
