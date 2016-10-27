@@ -35,6 +35,7 @@ var clusterMemDataUsed = Array(60).fill(0);
 
 var clusterNetData = Array(60).fill(0);
 
+/*
 (function () {
     'use strict';
 
@@ -85,6 +86,7 @@ var clusterNetData = Array(60).fill(0);
          };
     });
 }());
+*/
 
 function initCNOverview(response){
     $('#computeNodes').append('<h1>Computenodes</h1>');
@@ -910,41 +912,46 @@ function createFullView(cn){
     return html;
 }
 
+var initDatepicker = function() {
+    $('input[name="daterange"]').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: true,
+        timePickerIncrement: 10,
+        startDate: moment().subtract(1, 'hour'),
+        endDate: moment(),
+        maxDate: moment(),
+        locale: {
+            format: 'MM-DD-YYYY H:mm:ss'
+        },
+        ranges: {
+            'Today': [moment().startOf('day'), moment().endOf('day')],
+            'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+            'Last 48 Hours': [moment().subtract(48, 'hours'), moment().endOf('day')],
+            'Last 7 Day': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')]
+        }
+    });
+}
 
-// var options = {
-//         animation: {
-//             duration: 0
-//         },
-//         responsive: true,
-//         maintainAspectRatio: false,
-//         responsiveAnimationDuration: 0,
-//         legend: {
-//             display: true,
-//             labels: {
-//                 boxWidth: 20         
-//             }
-//         },
-//         scales:{
-//             xAxes: [{
-//                 gridLines: {
-//                     display: false
-//                 },
-//                 stacked: false,
-//                 display: true,
-//                 ticks: {
-//                     autoSkip: true,
-//                     maxRotation: 0,
-//                     minRotation: 0
-//                 }
-//             }],
-//             yAxes: [{
-//                 stacked: false,
-//                 scaleLabel: {
-//                     display: true,
-//                     labelString: response['data'][metric]['ylabel']
-//                 }
-//             }]
-//         },
-//         tooltips: {
-//         }
-// };
+$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker){
+    var diff = picker.endDate - picker.startDate;
+    console.log(diff);
+    if (diff < 3600000){
+        var start = new Date(picker.endDate - 3600000);
+        var end = new Date(picker.endDate);
+        var trange = datestring(start)+' - '+datestring(end)
+        $('input[name="daterange"]').val(trange);
+        alert("Timerange is less than one hour. Minimum Timerange to use is 1 hour. Range set to: "+trange);
+    }
+});
+
+function datestring(s) {
+    var M = ("0" + (s.getMonth() + 1)).slice(-2);
+    var D = ("0" + s.getDate()).slice(-2);
+    var Y = s.getFullYear();
+    var H = s.getHours();
+    var m = ("0" + s.getMinutes()).slice(-2);
+    var s = ("0" + s.getSeconds()).slice(-2);
+
+    var ds = M+'/'+D+'/'+Y+' '+H+':'+m+':'+s;
+    return ds;
+}

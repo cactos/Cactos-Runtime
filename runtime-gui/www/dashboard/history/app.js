@@ -55,7 +55,6 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
         }
     )
 
-
     //rangehistory controller logic
     $scope.SendData = function (){
         // loading screen
@@ -78,7 +77,7 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
         }
 
         // get cnListhistory from hbase
-        $http.get('/getCNListHistory/'+date)
+        $http.get('/api/monitoring/getCNListHistory/'+date)
             .success(function(response, status){
                 console.log(response);
 
@@ -99,6 +98,7 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
             });
 
     };
+
 
 }]);
 
@@ -125,12 +125,12 @@ angular.module('history').directive('compile', ['$compile', function ($compile) 
                 // assign it into the current DOM
                 element.html(value);
 
-                //console.log(value);
+
+                //recompile js
+                initDatepicker()
 
 
-                //call buildCharts to reload js content into the html
-                //buildCharts();
-                //createVms();
+
 
 
                 // compile the new DOM and link it to the current
