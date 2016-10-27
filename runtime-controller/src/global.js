@@ -45,7 +45,7 @@ var staticConf = {
 		"name" : "Virtual Machines",
 	},
 	'history' : {
-		"path" : "/dashboard/rangehistory",
+		"path" : "/dashboard/history/index.html",
 		"name" : "History",
 	},
 };
