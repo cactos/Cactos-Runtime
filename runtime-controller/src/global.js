@@ -3,10 +3,15 @@ var config = {
 	'cactoopt' 	: { "status" : "on" },
         'monitors' 	: { "status" : "on" },
         'apps' 		: { "status" : "on" },
+
 	'metrics'	: {
-		"status" : "on",
+		"status" : "off",
 		"url"	 : "http://example.com",
 	},
+	'cluster' 	: { "status" : "on" },
+	'nodes' 	: { "status" : "on" },
+	'vms' 	: { "status" : "on" },
+	'history' 	: { "status" : "on" },
     };
 
 var staticConf = {
@@ -22,9 +27,26 @@ var staticConf = {
 		"path" : "/dc/index.html",
 		"name" : "Datacentre Controller",
 	},
+
 	'metrics' : {
 		"path" : "/metrics/index.html",
 		"name" : "Monitoring Overview",
+	},
+	'cluster' : {
+		"path" : "/dashboard/cluster/index.html",
+		"name" : "Cluster Overview",
+	},
+	'nodes' : {
+		"path" : "/dashboard/computenodes/index.html",
+		"name" : "Computenodes",
+	},
+	'vms' : {
+		"path" : "/dashboard/virtualmachines",
+		"name" : "Virtual Machines",
+	},
+	'history' : {
+		"path" : "/dashboard/rangehistory",
+		"name" : "History",
 	},
 };
 
