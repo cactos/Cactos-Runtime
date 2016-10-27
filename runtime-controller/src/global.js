@@ -41,7 +41,7 @@ var staticConf = {
 		"name" : "Computenodes",
 	},
 	'vms' : {
-		"path" : "/dashboard/virtualmachines",
+		"path" : "/dashboard/vms/index.html",
 		"name" : "Virtual Machines",
 	},
 	'history' : {

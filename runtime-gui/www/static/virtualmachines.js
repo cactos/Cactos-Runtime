@@ -31,6 +31,7 @@ function createVars(c, mode){
 }
 
 // angular request loop for vm Controller
+/*
 (function (){
     'use strict';
 
@@ -49,6 +50,7 @@ function createVars(c, mode){
         poller();
     });
 }());
+*/
 
 //update charts
 var chartUpdate = function(e){
@@ -74,7 +76,9 @@ var chartUpdate = function(e){
     }
 };
 
-$(document).ready(function(){
+//$(document).ready(function(){
+var createVms = function () {
+
     var cpu = document.getElementsByClassName('cpuCharts');
     var mem = document.getElementsByClassName('memCharts');
     var fs = document.getElementsByClassName('fsCharts');
@@ -90,45 +94,45 @@ $(document).ready(function(){
     var vmcdata = {
         labels: label,
         datasets: [
-                {
-                    label: 'used',
-                    borderColor: color_1,
-                    data: initArr,
-                    pointRadius: 0.1
-                }
-            ]
+            {
+                label: 'used',
+                borderColor: color_1,
+                data: initArr,
+                pointRadius: 0.1
+            }
+        ]
     };
     var memdata = {
         labels: label,
         datasets: [
-                {
-                    label: 'used',
-                    borderColor: color_1,
-                    data: initArr,
-                    pointRadius: 0.1 
-                },{
-                    label: 'available',
-                    borderColor: color_2,
-                    data: initArr,
-                    pointRadius: 0.1  
-                }
-            ]
+            {
+                label: 'used',
+                borderColor: color_1,
+                data: initArr,
+                pointRadius: 0.1
+            }, {
+                label: 'available',
+                borderColor: color_2,
+                data: initArr,
+                pointRadius: 0.1
+            }
+        ]
     };
     var fsdata = {
         labels: label,
         datasets: [
-                {
-                    label: 'used',
-                    borderColor: color_1,
-                    data: initArr,
-                    pointRadius: 0.1
-                },{
-                    label: 'available',
-                    borderColor: color_2,
-                    data: initArr,
-                    pointRadius: 0.1  
-                }
-            ]
+            {
+                label: 'used',
+                borderColor: color_1,
+                data: initArr,
+                pointRadius: 0.1
+            }, {
+                label: 'available',
+                borderColor: color_2,
+                data: initArr,
+                pointRadius: 0.1
+            }
+        ]
     };
     // the default chart options
     var options = {
@@ -141,8 +145,8 @@ $(document).ready(function(){
         legend: {
             display: true
         },
-        scales:{
-            xAxes: [{ 
+        scales: {
+            xAxes: [{
                 stacked: false,
                 display: false
             }],
@@ -154,115 +158,113 @@ $(document).ready(function(){
             enabled: false
         }
     };
-    for (var i = 0; i < cpuLines.length; i++){
+    for (var i = 0; i < cpuLines.length; i++) {
         var ctx = document.getElementById(cpuLines[i]);
         cpuCharts[i] = new Chart(ctx, {
-                type: 'line',
-                data: vmcdata,
-                options: {
-                    animation: {
-                        duration: 0
+            type: 'line',
+            data: vmcdata,
+            options: {
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                responsiveAnimationDuration: 0,
+                legend: {
+                    display: true,
+                    labels: {
+                        boxWidth: 20
                     },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    responsiveAnimationDuration: 0,
-                    legend: {
-                        display: true,
-                        labels: {
-                            boxWidth: 20
-                        },
-                        onClick: false
-                    },
-                    scales:{
-                        xAxes: [{ 
-                            stacked: false,
-                            display: false 
-                        }],
-                        yAxes: [{
-                            stacked: false,
-                            scaleLabel:{
-                                display: true,
-                                labelString: 'Percentage'
-                            }
-                        }]
-                    },
-                    tooltips: {
-                    }
-                }
-            });
+                    onClick: false
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Percentage'
+                        }
+                    }]
+                },
+                tooltips: {}
+            }
+        });
     }
-    for(var i = 0; i < memLines.length; i++){
+    for (var i = 0; i < memLines.length; i++) {
         var ctx = document.getElementById(memLines[i]);
-		memCharts[i] = new Chart(ctx, {
-				type: 'line',
-				data: memdata,
-                options: {
-                    animation: {
-                        duration: 0
+        memCharts[i] = new Chart(ctx, {
+            type: 'line',
+            data: memdata,
+            options: {
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                responsiveAnimationDuration: 0,
+                legend: {
+                    display: true,
+                    labels: {
+                        boxWidth: 20
                     },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    responsiveAnimationDuration: 0,
-                    legend: {
-                        display: true,
-                        labels: {
-                            boxWidth: 20
-                        },
-                        onClick: false
-                    },
-                    scales:{
-                        xAxes: [{ 
-                            stacked: false,
-                            display: false 
-                        }],
-                        yAxes: [{
-                            stacked: false,
-                            scaleLabel:{
-                                display: true,
-                                labelString: 'MB'
-                            }
-                        }]
-                    },
-                    tooltips: {
-                    }
-                }
-            });
+                    onClick: false
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'MB'
+                        }
+                    }]
+                },
+                tooltips: {}
+            }
+        });
     }
-    for(var i = 0; i < fsLines.length; i++){
+    for (var i = 0; i < fsLines.length; i++) {
         var ctx = document.getElementById(fsLines[i]);
-		fsCharts[i] = new Chart(ctx, {
-				type: 'line',
-				data: fsdata,
-                options: {
-                    animation: {
-                        duration: 0
+        fsCharts[i] = new Chart(ctx, {
+            type: 'line',
+            data: fsdata,
+            options: {
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                responsiveAnimationDuration: 0,
+                legend: {
+                    display: true,
+                    labels: {
+                        boxWidth: 20
                     },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    responsiveAnimationDuration: 0,
-                    legend: {
-                        display: true,
-                        labels: {
-                            boxWidth: 20
-                        },
-                        onClick: false
-                    },
-                    scales:{
-                        xAxes: [{ 
-                            stacked: false,
-                            display: false 
-                        }],
-                        yAxes: [{
-                            stacked: false,
-                            scaleLabel:{
-                                display: true,
-                                labelString: 'MB'
-                            }
-                        }]
-                    },
-                    tooltips: {
-                    }
-                }
-            });
+                    onClick: false
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'MB'
+                        }
+                    }]
+                },
+                tooltips: {}
+            }
+        });
     }
-});
+//});
+};
