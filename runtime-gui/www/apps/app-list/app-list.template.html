@@ -1,8 +1,25 @@
+<!--
 <div>
 	<div>
 		<h1 style="margin-top:100px; !important">CACTOS Applications</h1>
 	<ul>
 		<li ng-repeat="app in $ctrl.applications">
-			<a href="#!apps/{{$ctrl.getId(app)}}?name={{app['name']}}">{{app['name']}}</a></li>
+			<a href="#!apps/{{$ctrl.getId(app)}}?name={{app['name']}}">{{app['name']}}</a>
+		</li>
 	</ul>
 </div>
+-->
+
+
+	<aside id="sidebar" class="col-sm-3 col-md-2 sidebar">
+		<h3 class="">Applications</h3>
+		<div class="sidebar-menu col-md-12">
+			<ul class="nav nav-sidebar">
+
+				<li ng-repeat="app in $ctrl.applications">
+					<a href="#!apps/{{$ctrl.getId(app)}}?name={{app['name']}}">{{app['name']}}</a>
+				</li>
+
+			</ul>
+		</div>
+	</aside>

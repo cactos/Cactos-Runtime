@@ -79,8 +79,6 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
         // get cnListhistory from hbase
         $http.get('/api/monitoring/getCNListHistory/'+date)
             .success(function(response, status){
-                console.log(response);
-
                 clusterCNData = response['cns']['cnAmount']
 
                 initappOverview();
