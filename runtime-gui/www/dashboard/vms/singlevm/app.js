@@ -1,15 +1,23 @@
 
-angular.module('vms',['indexList', 'ngSanitize']);
+angular.module('singlevm',['indexList', 'ngSanitize']);
 
 
-angular.module('vms').service('dataService', ['$http', '$q', function($http, $q){
+angular.module('singlevm').service('dataService', ['$http', '$q', '$location', function($http, $q, $location){
+
+    console.log($location);
+    var usrURL = $location.$$absUrl;
+
+    var vmId = usrURL.substr(usrURL.lastIndexOf('/') + 1);
+    console.log(vmId);
+
+
     var deferObject,
         myMethods = {
 
             getPromise: function() {
-                var promise       =  $http.get('/api/monitoring/virtualmachines', {params: {"headless": true}}),
+                var promise       =  $http.get('/api/monitoring/snapshots/vm/' + vmId, {params: {"headless": true}}),
                     deferObject =  deferObject || $q.defer();
-
+                console.log("sending: " + '/api/monitoring/snapshots/vm/' + vmId);
                 promise.then(
                     // OnSuccess function
                     function(answer){
@@ -30,11 +38,12 @@ angular.module('vms').service('dataService', ['$http', '$q', function($http, $q)
 
 }]);
 
-angular.module('vms').controller('VMsController', ['$scope', 'dataService', '$compile', '$http', '$timeout', function ($scope, dataService, $compile, $http, $timeout) {
+angular.module('singlevm').controller('SingleVmController', ['$scope', 'dataService', '$compile', '$http', '$timeout', '$location', function ($scope, dataService, $compile, $http, $timeout, $location) {
 
     $scope.cluster = false;
     $scope.html = false;
     $scope.error = false;
+
 
     var askForPromise = dataService.getPromise();
 
@@ -44,9 +53,8 @@ angular.module('vms').controller('VMsController', ['$scope', 'dataService', '$co
             $scope.cluster = response;
             $scope.html = response.data;
 
-
             $scope.success = true;
-            //main();
+
         },
         // OnFailure function
         function(response) {
@@ -56,8 +64,9 @@ angular.module('vms').controller('VMsController', ['$scope', 'dataService', '$co
     )
 
 
-    //cactos gui part
-    var url = "/api/monitoring/virtual";
+    //singlevm.js controller logic part
+    var usrURL = $location.$$absUrl;
+    var url = '/api/monitoring/virtual/' + usrURL.substr(usrURL.lastIndexOf('/') + 1);
     var timeout = "";
     var poller = function(){
         $http.get(url).success(function(response){
@@ -68,11 +77,13 @@ angular.module('vms').controller('VMsController', ['$scope', 'dataService', '$co
     };
     poller();
 
+
+
 }]);
 
-angular.module('vms').directive('vmsOverview', ['$compile', function ($compile) {
+angular.module('singlevm').directive('singleVm', ['$compile', function ($compile) {
     return {
-        templateUrl: 'vms.template.html',
+        templateUrl: '/dashboard/vms/singlevm/singlevm.template.html',
         //restrict: 'A',
         link: function(scope, element, attrs){
 
@@ -80,7 +91,7 @@ angular.module('vms').directive('vmsOverview', ['$compile', function ($compile) 
     };
 }]);
 
-angular.module('vms').directive('compile', ['$compile', function ($compile) {
+angular.module('singlevm').directive('compile', ['$compile', function ($compile) {
     return function(scope, element, attrs) {
         scope.$watch(
 
@@ -98,7 +109,7 @@ angular.module('vms').directive('compile', ['$compile', function ($compile) {
 
                 //call buildCharts to reload js content into the html
                 //buildCharts();
-                createVms();
+                buildSingleVM();
 
 
                 // compile the new DOM and link it to the current

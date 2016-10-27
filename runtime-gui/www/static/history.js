@@ -28,12 +28,12 @@ var color_1 = "#689F38",
 
     var app = angular.module('AjaxApp', []);
 
-    console.log("fucking angualr!!!!!");
+
     app.controller("HistoryController", function($timeout, $scope, $http, $log){
         var url = "/api/monitoring/ajax";
         var timeout = "";
         var poller = function(){
-            console.log("fucking angualr inside coontroller!!!!!");
+
             $http.get(url).success(function(response){
                 console.log(response)
                 $scope.e = response;
