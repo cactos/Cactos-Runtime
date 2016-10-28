@@ -95,7 +95,7 @@ var clusterNetData = null;
 }());
 */
 
-
+//from rangehistory.template.html, needs to be loaded via the controller after recompiling the html
 var initDatepicker = function() {
     $('input[name="daterange"]').daterangepicker({
         timePicker: true,
