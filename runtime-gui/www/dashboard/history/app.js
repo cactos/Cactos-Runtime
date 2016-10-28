@@ -90,6 +90,7 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
 
                 initClusterOverview();
 
+                console.log(response);
                 initCNOverview(response);
                 initClusterData();
 

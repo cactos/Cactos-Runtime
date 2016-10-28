@@ -740,7 +740,7 @@ function initCNOverview(response){
             options: vmoptions
         });
 
-        $('#collapse'+cnName).collapse();
+        //$('#collapse'+cnName).collapse();
         // incerment x for chart Object Array
         x += 1;
     });
