@@ -4,12 +4,10 @@ angular.module('singlevm',['indexList', 'ngSanitize']);
 
 angular.module('singlevm').service('dataService', ['$http', '$q', '$location', function($http, $q, $location){
 
-    console.log($location);
+
     var usrURL = $location.$$absUrl;
 
     var vmId = usrURL.substr(usrURL.lastIndexOf('/') + 1);
-    console.log(vmId);
-
 
     var deferObject,
         myMethods = {
@@ -17,7 +15,6 @@ angular.module('singlevm').service('dataService', ['$http', '$q', '$location', f
             getPromise: function() {
                 var promise       =  $http.get('/api/monitoring/snapshots/vm/' + vmId, {params: {"headless": true}}),
                     deferObject =  deferObject || $q.defer();
-                console.log("sending: " + '/api/monitoring/snapshots/vm/' + vmId);
                 promise.then(
                     // OnSuccess function
                     function(answer){

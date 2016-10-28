@@ -80,7 +80,7 @@ var buildSingleVM = function () {
                 borderColor: "#8dc63f",
                 data: initArr,
                 pointRadius: 0.1
-            }, {
+            },{
                 label: 'available',
                 borderColor: "#2b333d",
                 data: initArr,
@@ -96,7 +96,7 @@ var buildSingleVM = function () {
                 borderColor: "#8dc63f",
                 data: initArr,
                 pointRadius: 0.1
-            }, {
+            },{
                 label: 'MB/s write',
                 borderColor: "#2b333d",
                 data: initArr,
@@ -108,12 +108,12 @@ var buildSingleVM = function () {
         labels: label,
         datasets: [
             {
-                label: '% used',
+                label: 'MB used',
                 borderColor: "#8dc63f",
                 data: initArr,
                 pointRadius: 0.1
-            }, {
-                label: '% available',
+            },{
+                label: 'MB available',
                 borderColor: "#2b333d",
                 data: initArr,
                 pointRadius: 0.1
@@ -143,7 +143,7 @@ var buildSingleVM = function () {
         legend: {
             display: true
         },
-        scales: {
+        scales:{
             xAxes: [{
                 stacked: false,
                 display: false
@@ -152,36 +152,37 @@ var buildSingleVM = function () {
                 stacked: true
             }]
         },
-        tooltips: {}
+        tooltips: {
+        }
     };
 
     //create Charts
     var ctx = document.getElementById("cpuLineChart").getContext("2d");
-    cpuLine = new Chart(ctx, {
+    cpuLine  = new Chart(ctx, {
         type: 'line',
         data: vmcdata,
         options: options
     });
     var ctx = document.getElementById("memLineChart").getContext("2d");
-    memLine = new Chart(ctx, {
+    memLine  = new Chart(ctx, {
         type: 'line',
         data: memdata,
         options: options
     });
     var ctx = document.getElementById("fsLineChart").getContext("2d");
-    fsLine = new Chart(ctx, {
+    fsLine  = new Chart(ctx, {
         type: 'line',
         data: fsdata,
         options: options
     });
     var ctx = document.getElementById("fsstoLineChart").getContext("2d");
-    fsstoLine = new Chart(ctx, {
+    fsstoLine  = new Chart(ctx, {
         type: 'line',
         data: fsstodata,
         options: options
     });
     var ctx = document.getElementById("netLineChart").getContext("2d");
-    netLine = new Chart(ctx, {
+    netLine  = new Chart(ctx, {
         type: 'line',
         data: netdata,
         options: options
