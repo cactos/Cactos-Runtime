@@ -56,11 +56,15 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
     )
 
     //rangehistory controller logic
+
     $scope.SendData = function (){
         // loading screen
         $scope.loading = true;
 
+
         var date = $('input[name="daterange"]').val();
+        createLabelString(date);
+        initVars();
 
         // clear content for new request
         var node = document.getElementById("computeNodes");
@@ -82,6 +86,7 @@ angular.module('history').controller('HistoryController', ['$scope', 'dataServic
                 clusterCNData = response['cns']['cnAmount']
 
                 initappOverview();
+                initAppData(response['apphistory']);
 
                 initClusterOverview();
 
