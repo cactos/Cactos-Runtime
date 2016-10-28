@@ -59,34 +59,55 @@
 		</div>
 	</div>
 	<hr>
-	<div>
-		<h6>Instances of <i>{{$ctrl.applicationName}}</i> Application</h6>
-		<div class="appInstance" ng-repeat="appInstance in
-		$ctrl.appInstances | filter:{application : $ctrl.applicationId}">
-			<b>application Instance {{$index}} (id {{$ctrl.getId(appInstance)}})</b>
 
-			<div class="compInstanceGroup" 
-				ng-repeat="component in $ctrl.appComponents | filter:{application:
-								appInstance.application}">
-				<b>instances of 
-					<i>{{$ctrl.findLcComponentName(component.component)}}</i>
-					(id: {{$ctrl.getId(component)}})
-				</b>
-				appInstId: {{$ctrl.getId(appInstance)}}
-				appComponent: {{$ctrl.getIdAsInt(component)}}
-				<div class="compInstance" 
-					ng-repeat="compInstance in $ctrl.appCompInstances |
-					filter:{applicationInstance: $ctrl.getIdAsInt(appInstance),
-						applicationComponent: $ctrl.getIdAsInt(component),
-					}:true">
-					<i>{{$ctrl.getId(compInstance)}}:</i>
-					{{compInstance['remoteState']}}
-					{{(compInstance['remoteState'] === "OK") ?
-						$ctrl.findIpAddress(compInstance) :
-						""}}
+
+
+	<!--
+		Instance Overview
+	-->
+
+	<div class="panel panel-success">
+		<div class="panel-heading">Instances of {{$ctrl.applicationName}} Application</div>
+		<div class="panel-body">
+
+				<div class="panel panel-default" ng-repeat="appInstance in
+				$ctrl.appInstances | filter:{application : $ctrl.applicationId}">
+					<div class="panel-heading">application Instance {{$index}} (id {{$ctrl.getId(appInstance)}})</div>
+
+					<div class="panel-body">
+
+						<div class="panel panel-default"
+							ng-repeat="component in $ctrl.appComponents | filter:{application:
+											appInstance.application}">
+							<div class="panel-heading"><b>instances of
+								<i>{{$ctrl.findLcComponentName(component.component)}}</i>
+								(id: {{$ctrl.getId(component)}})
+							</b>
+								appInstId: {{$ctrl.getId(appInstance)}}
+								appComponent: {{$ctrl.getIdAsInt(component)}}
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="compInstance in $ctrl.appCompInstances |
+								filter:{applicationInstance: $ctrl.getIdAsInt(appInstance),
+									applicationComponent: $ctrl.getIdAsInt(component),
+								}:true">
+									{{$ctrl.getId(compInstance)}}:
+									{{compInstance['remoteState']}}
+									{{(compInstance['remoteState'] === "OK") ?
+									$ctrl.findIpAddress(compInstance) :
+									""}}
+
+								</li>
+
+							</ul>
+						</div>
+					</div>
 				</div>
+
 			</div>
+
 		</div>
-		<hr>
 	</div>
+
+
 </div>
