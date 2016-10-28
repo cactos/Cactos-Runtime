@@ -1,3 +1,4 @@
+<!--
 <div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-2">
 	<h5>Application overview: {{$ctrl.applicationName}}</h5>
 	<div>
@@ -11,7 +12,7 @@
 					</div>
 					<span>
 						<label style="display:inline">instances:
-							<!-- todo read min/max from properties -->
+							<!-- todo read min/max from properties --><!--
 							{{alert($ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'])}}
 						<input style="width:50px" type="number"
 				min="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'] || 1}}" 
@@ -60,6 +61,76 @@
 	</div>
 	<hr>
 
+	-->
+
+<div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-2">
+	<div style="margin-top:70px"></div>
+	<h3>Application overview: {{$ctrl.applicationName}}</h3>
+	<form ng-submit="$ctrl.deployApplication()" class="form-horizontal">
+		<fieldset>
+			<legend>Instantiate new {{$ctrl.applicationName}} application</legend>
+			<div class="form-group">
+				<div class="col-md-8" ng-repeat="component in $ctrl.deployment.components">
+					<label class="col-md-4 control-label" for="test">{{component['name']}}</label>
+
+					<span>
+						<label style="display:inline">instances:
+							<!-- todo read min/max from properties -->
+							{{alert($ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'])}}
+						<input style="width:50px" type="number"
+							   min="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'] || 1}}"
+							   max="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['maxInstances'] || ''}}"
+							   ng-model="component['instances']"> </label>
+   					</span><span>
+						<label style="display:inline">vm:
+							<select
+									ng-model="component['idHardware']">
+								<option
+										ng-repeat="flavourInfo in $ctrl.deployment.flavours"
+										value="{{flavourInfo['id']}}">
+								{{flavourInfo['offer']['numberOfCores']}} core(s),
+								{{flavourInfo['offer']['mbOfRam'] > 1024 ?
+									((flavourInfo['offer']['mbOfRam']/1000 | number : 0) + ' GB'):
+									(flavourInfo['offer']['mbOfRam'] + ' MB')}} memory
+							</select>
+					</label>
+					<label style="display:inline">image:
+						<select ng-model="component['idImage']">
+							<option ng-repeat="image in
+							$ctrl.images | filter:{name :
+							$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['images']}"
+									ng-value="$ctrl.getId(image)" >
+							{{image.name}}
+							</option>
+						</select>
+					</label>
+					</span>
+					<span>
+						<span ng-repeat="metafield in $ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">
+							<label style="display:inline">{{metafield['name']}}
+								<select ng-model="component[metafield.property_name]" style="width:150px">
+									<option ng-repeat="metaoption in metafield.options" value="{{metaoption.value}}"/>{{metaoption.name}}</option>
+								</select>
+							</label>
+					</span>
+
+				</div>
+
+
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label" ></label>
+				<div class="col-md-4">
+					<input type="submit" class="btn btn-primary" value="deploy">
+					<input type="button" class="btn" ng-click="$ctrl.clearForm()" value="clear">
+				</div>
+			</div>
+
+		</fieldset>
+
+
+	</form>
 
 
 	<!--
