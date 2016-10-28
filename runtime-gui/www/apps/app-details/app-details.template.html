@@ -71,48 +71,58 @@
 			<legend>Instantiate new {{$ctrl.applicationName}} application</legend>
 			<div class="form-group">
 				<div class="col-md-8" ng-repeat="component in $ctrl.deployment.components">
-					<label class="col-md-4 control-label" for="test">{{component['name']}}</label>
+					<h4>Component: <span class="label label-default">{{component['name']}}</span></h4>
 
-					<span>
-						<label style="display:inline">instances:
+					<div class="form-group">
+						<label for="inputNr">instances:
 							<!-- todo read min/max from properties -->
-							{{alert($ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'])}}
-						<input style="width:50px" type="number"
+							{{alert($ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'])}}</label>
+						<input  id="inputNr" class="form-control input-sm" type="number"
 							   min="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['minInstances'] || 1}}"
 							   max="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['maxInstances'] || ''}}"
 							   ng-model="component['instances']"> </label>
-   					</span><span>
-						<label style="display:inline">vm:
-							<select
-									ng-model="component['idHardware']">
+   					</div>
+
+
+					<div class="form-group">
+
+							<label for="vmSelect">vm:</label>
+							<select id="vmselect" class="form-control" ng-model="component['idHardware']">
 								<option
 										ng-repeat="flavourInfo in $ctrl.deployment.flavours"
 										value="{{flavourInfo['id']}}">
-								{{flavourInfo['offer']['numberOfCores']}} core(s),
-								{{flavourInfo['offer']['mbOfRam'] > 1024 ?
+									{{flavourInfo['offer']['numberOfCores']}} core(s),
+									{{flavourInfo['offer']['mbOfRam'] > 1024 ?
 									((flavourInfo['offer']['mbOfRam']/1000 | number : 0) + ' GB'):
 									(flavourInfo['offer']['mbOfRam'] + ' MB')}} memory
 							</select>
-					</label>
-					<label style="display:inline">image:
-						<select ng-model="component['idImage']">
+
+					</div>
+
+					<div class="form-group">
+
+						<label for="imageSelect">image:</label>
+						<select id="imageSelect" class="form-control" ng-model="component['idImage']">
 							<option ng-repeat="image in
 							$ctrl.images | filter:{name :
 							$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['images']}"
 									ng-value="$ctrl.getId(image)" >
-							{{image.name}}
+								{{image.name}}
 							</option>
 						</select>
-					</label>
-					</span>
-					<span>
-						<span ng-repeat="metafield in $ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">
-							<label style="display:inline">{{metafield['name']}}
-								<select ng-model="component[metafield.property_name]" style="width:150px">
-									<option ng-repeat="metaoption in metafield.options" value="{{metaoption.value}}"/>{{metaoption.name}}</option>
-								</select>
-							</label>
-					</span>
+
+					</div>
+
+					<div class="form-group" ng-repeat="metafield in $ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">
+
+						<label for="$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">{{metafield['name']}}</label>
+						<select id="$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']" class="form-control" ng-model="component[metafield.property_name]">
+							<option ng-repeat="metaoption in metafield.options" value="{{metaoption.value}}"/>{{metaoption.name}}</option>
+						</select>
+
+					</div>
+
+
 
 				</div>
 
@@ -132,6 +142,8 @@
 
 	</form>
 
+
+	<div style="margin-top:50px"></div>
 
 	<!--
 		Instance Overview
