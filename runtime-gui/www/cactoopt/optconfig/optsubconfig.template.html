@@ -1,3 +1,4 @@
+<!--
 <div class="def">
 	<div>
 		<h5>Sub-Configuration for "{{$ctrl.parentConfig}}" Algorithm:
@@ -17,4 +18,23 @@
 			no sub-config available
 		</div>
 	</div>
+</div>
+-->
+
+<div style="margin-top:10px"></div>
+<label class="col-md-6 control-label" for="subSelectOptimisation">Sub-Configuration for "{{$ctrl.parentConfig}}" Algorithm:</label>
+<div class="col-md-6" ng-show="$ctrl.subConfigAvailable()">
+	<select id="subSelectOptimisation" ng-model="$ctrl.subSelection" ng-change="$ctrl.update()" class="form-control">
+		<option value="">--- Select Option ---</option>
+		<option ng-repeat="opt in $ctrl.remoteElements"
+				value="{{opt['option']}}">
+			{{opt['name']}}
+		</option>
+
+
+	</select>
+
+</div>
+<div class="col-md-6" ng-hide="$ctrl.subConfigAvailable()">
+	<label class="col-md-6 control-label">No sub-config available</label>
 </div>

@@ -1,32 +1,39 @@
-<div class="abc">
-	<div>
-		<h4>Configuration for Placement Algorithm</h4>
-			<b>current: {{$ctrl.placement.current}}</b>
-		<form ng-submit="$ctrl.saveConfiguration('placement')">
-		<label>placement:
-			<select ng-model="$ctrl.placement.selection['main']"
-					ng-change="$ctrl.changeSubConfig('placement', '')">
-				<option value="{{opt['option']}}"
-					ng-repeat="opt in $ctrl.placement.options">
-					{{opt['name']}}
-				</option>
+<!--
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-sm-6">
+				<h4>Configuration for Placement Algorithm</h4>
+					<b>current: {{$ctrl.placement.current}}</b>
+				<form ng-submit="$ctrl.saveConfiguration('placement')">
+				<label>placement:
+					<select ng-model="$ctrl.placement.selection['main']"
+							ng-change="$ctrl.changeSubConfig('placement', '')">
+						<option value="{{opt['option']}}"
+							ng-repeat="opt in $ctrl.placement.options">
+							{{opt['name']}}
+						</option>
 
-				<p ng-repeat="opt in $ctrl.placement.options">
-				{{opt}}
-				</p>
-			</select>
-			<sub-config-options
-	   			on-change="$ctrl.changeSubConfig(type, value)"
-       				sub-config-prefix="'placement'"
-	     			sub-config="($ctrl.placement.options |
-				filter:{option: $ctrl.placement.selection.main})[0]['sub-config']"
-       				parent-config="$ctrl.placement.selection.main"
-				>
-			</sub-config-optionis>
-		</label>
-		<input type="submit" value="set placement config"/>
-		</form>
-		<hr/>
+						<p ng-repeat="opt in $ctrl.placement.options">
+						{{opt}}
+						</p>
+					</select>
+					<sub-config-options
+						on-change="$ctrl.changeSubConfig(type, value)"
+							sub-config-prefix="'placement'"
+							sub-config="($ctrl.placement.options |
+						filter:{option: $ctrl.placement.selection.main})[0]['sub-config']"
+							parent-config="$ctrl.placement.selection.main"
+						>
+					</sub-config-optionis>
+				</label>
+				<input type="submit" value="set placement config"/>
+				</form>
+				<hr/>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
 		<h4>Configuration for Optimisation Algorithm</h4>
 			<b>current: {{$ctrl.optimisation.current}}</b>
 		<form ng-submit="$ctrl.saveConfiguration('optimisation')">
@@ -47,5 +54,91 @@
 		</label>
 		<input type="submit" value="set opt config"/>
 		</form>
+			</div>
 	</div>
 </div>
+-->
+
+
+<form ng-submit="$ctrl.saveConfiguration('placement')" class="form-horizontal">
+	<fieldset>
+
+		<!-- Form Name -->
+	<legend>Configuration for Placement Algorithm</legend>
+	<h4>current: <span class="label label-default">{{$ctrl.placement.current}}</span></h4>
+
+	<!-- Select Basic -->
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="selectPlacement">Placement:</label>
+		<div class="col-md-8">
+			<select id="selectPlacement" ng-model="$ctrl.placement.selection['main']"
+					ng-change="$ctrl.changeSubConfig('placement', '')" class="form-control">
+				<option value="{{opt['option']}}"
+						ng-repeat="opt in $ctrl.placement.options">
+					{{opt['name']}}
+				</option>
+			</select>
+			<sub-config-options
+					on-change="$ctrl.changeSubConfig(type, value)"
+					sub-config-prefix="'placement'"
+					sub-config="($ctrl.placement.options |
+							filter:{option: $ctrl.placement.selection.main})[0]['sub-config']"
+					parent-config="$ctrl.placement.selection.main">
+
+			</sub-config-options>
+		</div>
+	</div>
+
+
+	<!-- Button -->
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="placementBtn"></label>
+		<div class="col-md-4">
+			<button id="placementBtn" name="singlebutton" class="btn btn-primary">Set Placement Config</button>
+		</div>
+	</div>
+
+	</fieldset>
+	</form>
+
+	<form ng-submit="$ctrl.saveConfiguration('placement')" class="form-horizontal">
+		<fieldset>
+
+			<!-- Form Name -->
+			<legend>Configuration for Optimisation Algorithm</legend>
+			<h4>current: <span class="label label-default">{{$ctrl.optimisation.current}}</span></h4>
+
+			<!-- Select Basic -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="selectOptimisation">Placement:</label>
+				<div class="col-md-8">
+					<select id="selectOptimisation" class="form-control" ng-model="$ctrl.optimisation.selection['main']"
+							ng-change="$ctrl.changeSubConfig('optimisation', '')">
+						<option value="{{opt['option']}}"
+								ng-repeat="opt in $ctrl.optimisation.options">
+							{{opt['name']}}
+						</option>
+					</select>
+					<sub-config-options
+							on-change="$ctrl.changeSubConfig(type, value)"
+							parent-config="$ctrl.optimisation.selection.main"
+							sub-config="($ctrl.optimisation.options |
+					filter:{option: $ctrl.optimisation.selection.main})[0]['sub-config']"
+							sub-config-prefix="'optimisation'">
+					</sub-config-options>
+				</div>
+			</div>
+
+
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="optimisationBtn"></label>
+				<div class="col-md-4">
+					<button id="optimisationBtn" name="singlebutton" class="btn btn-primary">Set optimisation Config</button>
+				</div>
+			</div>
+
+		</fieldset>
+</form>
+
+
