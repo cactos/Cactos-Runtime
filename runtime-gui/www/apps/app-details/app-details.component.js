@@ -1,6 +1,6 @@
 // Define the `phonecatApp` module
 
-function AppDetailsController($routeParams, colAccessor, colIdGetter, $filter, $location, $q, $resource, dcConfig){
+function AppDetailsController($routeParams, colAccessor, colIdGetter, $filter, $location, $q, $resource, dcConfig, $scope){
 	var ApplicationStarter = $resource("/api/apps/deployment/:appName", {appName : '@appName'});
 
 	var search = $location.search();
@@ -13,6 +13,8 @@ function AppDetailsController($routeParams, colAccessor, colIdGetter, $filter, $
 	this.appComponents = colAccessor.AuthColosseum.query({'path' : 'ac'});
 
 	this.appCompInstances = colAccessor.AuthColosseum.query({'path' : 'instance'});
+	
+
 	this.lifecycleComponents = colAccessor.AuthColosseum.query({'path' : 'lifecycleComponent'});
 	this.virtualMachines = colAccessor.AuthColosseum.query({'path' : 'virtualMachine'});
 	this.flavours = colAccessor.AuthColosseum.query({'path' : 'hardware'});
@@ -63,7 +65,9 @@ function AppDetailsController($routeParams, colAccessor, colIdGetter, $filter, $
 				});
 
 			self.deployment.components = compInformation;
+
 	});
+
 
 	this.deployApplication = function() {
 		var temp = JSON.parse(JSON.stringify(this.deployment.components));
@@ -241,6 +245,14 @@ function AppDetailsController($routeParams, colAccessor, colIdGetter, $filter, $
 	this.orderInstancesByComponents = function(theId) {
 		
 	}
+	
+	$scope.checkRemoteState = function (remoteState) {
+		if(remoteState === "OK"){
+			return false;
+		}
+		return true;
+	}
+
 }
 
 angular.module('appdetails').component('applicationDetails', {

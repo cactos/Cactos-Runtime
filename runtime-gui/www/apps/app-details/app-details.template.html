@@ -115,8 +115,8 @@
 
 					<div class="form-group" ng-repeat="metafield in $ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">
 
-						<label for="$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']">{{metafield['name']}}</label>
-						<select id="$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']" class="form-control" ng-model="component[metafield.property_name]">
+						<label for="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']}}">{{metafield['name']}}</label>
+						<select id="{{$ctrl.deployment.metadata[$ctrl.applicationName][component['name']]['metadata']}}" class="form-control" ng-model="component[metafield.property_name]">
 							<option ng-repeat="metaoption in metafield.options" value="{{metaoption.value}}"/>{{metaoption.name}}</option>
 						</select>
 
@@ -154,7 +154,7 @@
 		<div class="panel-body">
 
 				<div class="panel panel-default" ng-repeat="appInstance in
-				$ctrl.appInstances | filter:{application : $ctrl.applicationId}">
+				$ctrl.appInstances | filter:{application : $ctrl.applicationId}" id="applicationId{{$ctrl.applicationId}}">
 					<div class="panel-heading">application Instance {{$index}} (id {{$ctrl.getId(appInstance)}})</div>
 
 					<div class="panel-body">
@@ -173,7 +173,7 @@
 								<li class="list-group-item" ng-repeat="compInstance in $ctrl.appCompInstances |
 								filter:{applicationInstance: $ctrl.getIdAsInt(appInstance),
 									applicationComponent: $ctrl.getIdAsInt(component),
-								}:true">
+								}:true" ng-hide="checkRemoteState(compInstance['remoteState'])">
 									{{$ctrl.getId(compInstance)}}:
 									{{compInstance['remoteState']}}
 									{{(compInstance['remoteState'] === "OK") ?
