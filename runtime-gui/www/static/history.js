@@ -1,4 +1,7 @@
-var  vmLine = null,
+var  dataplayMasters = null,
+     dataplayRequests = null,
+     molproJobs = null,
+     vmLine = null,
      cnLine = null,
      cpuLine = null,
      memLine = null,
@@ -21,35 +24,39 @@ var color_1 = "#689F38",
     color_3 = "#757575",
     color_4 = "#212121";
 
-// angular request loop for historyController
+var colorArray = [color_1, color_2, color_3, color_4];
+
+// angular request loop for historyController, MOVED to dashboard/cluster/app.js
 /*
 (function () {
     'use strict';
 
     var app = angular.module('AjaxApp', []);
 
-
     app.controller("HistoryController", function($timeout, $scope, $http, $log){
-        var url = "/api/monitoring/ajax";
+        var url = "/ajax";
         var timeout = "";
         var poller = function(){
-
             $http.get(url).success(function(response){
-                console.log(response)
                 $scope.e = response;
                 chartUpdate(response);
                 timeout = $timeout(poller, 10000);
-
             });
         };
         poller();
     });
-});
+}());
 */
 
 // update charts
 var chartUpdate = function(e) {
     // get the charts
+    // application metrics
+    if(dataplayMasters == null)
+	createApplicationCharts(e);
+    else
+	updateApplicationCharts(e);
+    
     // update vms
     if(vmLine!=null){
         vmLine.data.datasets[0].data = e.vms.vms_running;
@@ -108,194 +115,462 @@ var chartUpdate = function(e) {
 
 }
 
+var createApplicationCharts = function(data){
+    var label = Array(60).fill('');
+    
+    // Dataplay Masters
+    var options = {
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            responsiveAnimationDuration: 0,
+            legend: {
+                display: true,
+                labels: {
+                    boxWidth: 20         
+                }
+            },
+            scales:{
+                xAxes: [{ 
+                    stacked: false,
+                    display: true,
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                }],
+                yAxes: [{
+                    stacked: false,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Masters'
+                    }
+                }]
+            },
+            tooltips: {
+            }
+        };
 
+    // set here data from json
+    var datasets = [];    
+    var rawData = data['appdata']['masters'];
+    var colorIndex = 0;
+    angular.forEach(rawData, function(val, key) {
+        datasets.push(
+          {
+            label: key,
+            borderColor: colorArray[colorIndex % 4], 
+            data: val,
+            pointRadius: 0.1
+          }      
+        );
+        colorIndex += 1;
+    });
+
+    var chartData = {
+        labels: label,
+        datasets: datasets
+    };
+    
+    var ctx = document.getElementById("dataplayMastersChart");
+    dataplayMasters = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: options
+    });
+    
+    
+    // Dataplay Requests
+    var options = {
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            responsiveAnimationDuration: 0,
+            legend: {
+                display: true,
+                labels: {
+                    boxWidth: 20         
+                }
+            },
+            scales:{
+                xAxes: [{ 
+                    stacked: false,
+                    display: true,
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                }],
+                yAxes: [{
+                    stacked: false,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'req/sec'
+                    }
+                }]
+            },
+            tooltips: {
+            }
+        };
+
+    // set here data from json
+    var datasets = [];    
+    var rawData = data['appdata']['requests'];
+    var colorIndex = 0;
+    angular.forEach(rawData, function(val, key) {
+        datasets.push(
+          {
+            label: key,
+            borderColor: colorArray[colorIndex % 4], 
+            data: val,
+            pointRadius: 0.1
+          }      
+        );
+        colorIndex += 1;
+    });
+
+    var chartData = {
+        labels: label,
+        datasets: datasets
+    };
+    
+    var ctx = document.getElementById("dataplayRequestsChart");
+    dataplayRequests = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: options
+    });    
+    
+    // Molpro Jobs
+    var options = {
+            animation: {
+                duration: 0
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            responsiveAnimationDuration: 0,
+            legend: {
+                display: true,
+                labels: {
+                    boxWidth: 20         
+                }
+            },
+            scales:{
+                xAxes: [{ 
+                    stacked: false,
+                    display: true,
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                }],
+                yAxes: [{
+                    stacked: false,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Number of jobs'
+                    }
+                }]
+            },
+            tooltips: {
+            }
+        };
+	    
+    var datasets = [];
+    var rawData = data['appdata']['molpro_jobs'];
+    var colorIndex = 0;
+    datasets.push({
+            label: 'Total',
+            borderColor: colorArray[colorIndex % 4], 
+            data: data['appdata']['molpro_jobs_total'],
+            pointRadius: 0.1
+          });
+    colorIndex++;
+    angular.forEach(rawData, function(val, key) {
+        datasets.push(
+          {
+            label: key,
+            borderColor: colorArray[colorIndex % 4], 
+            data: val,
+            pointRadius: 0.1
+          }      
+        );
+        colorIndex += 1;
+    });
+
+    var chartData = {
+        labels: label,
+        datasets: datasets
+    };
+    var ctx = document.getElementById("molproJobsChart");
+    molproJobs = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: options
+    });    
+
+}
+
+var updateApplicationCharts = function(data){
+    var label = Array(60).fill('');
+
+    // masters
+    var datasets = [];    
+    var rawData = data['appdata']['masters'];
+    var colorIndex = 0;
+    angular.forEach(rawData, function(val, key) {
+        datasets.push(
+          {
+            label: key,
+            borderColor: colorArray[colorIndex % 4], 
+            data: val,
+            pointRadius: 0.1
+          }      
+        );
+        colorIndex += 1;
+    });
+    dataplayMasters.data.datasets = datasets;
+    dataplayMasters.update();
+    
+    // requests
+    var datasets = [];    
+    var rawData = data['appdata']['requests'];
+    var colorIndex = 0;
+    angular.forEach(rawData, function(val, key) {
+        datasets.push(
+          {
+            label: key,
+            borderColor: colorArray[colorIndex % 4], 
+            data: val,
+            pointRadius: 0.1
+          }      
+        );
+        colorIndex += 1;
+    });
+    dataplayRequests.data.datasets = datasets;
+    dataplayRequests.update();
+    
+    // molpro
+    var datasets = [];
+    var rawData = data['appdata']['molpro_jobs'];
+    var colorIndex = 0;
+    datasets.push({
+            label: 'Total',
+            borderColor: colorArray[colorIndex % 4], 
+            data: data['appdata']['molpro_jobs_total'],
+            pointRadius: 0.1
+          });
+    colorIndex++;
+    angular.forEach(rawData, function(val, key) {
+        datasets.push(
+          {
+            label: key,
+            borderColor: colorArray[colorIndex % 4], 
+            data: val,
+            pointRadius: 0.1
+          }      
+        );
+        colorIndex += 1;
+    });
+    molproJobs.data.datasets = datasets;
+    molproJobs.update();    
+        
+}
 
 var buildCharts = function() {
-//$(document).ready(function(){
     // default variables
     var label = Array(60).fill('');
     var initArr = Array(60).fill(0);
-
+    
     var vmdata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'running',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'paused',
-                borderColor: color_2,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'shut',
-                borderColor: color_3,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'failure',
-                borderColor: color_4,
-                data: initArr,
-                pointRadius: 0.1
-            }
+            labels: label,
+            datasets: [
+                {
+                    label: 'running',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1 
+                },{
+                    label: 'paused',
+                    borderColor: color_2,
+                    data: initArr,
+                    pointRadius: 0.1
+                },{
+                    label: 'shut',
+                    borderColor: color_3,
+                    data: initArr,
+                    pointRadius: 0.1 
+                },{
+                    label: 'failure',
+                    borderColor: color_4,
+                    data: initArr,
+                    pointRadius: 0.1 
+                }
 
-        ]
+            ]
     };
     var cndata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'running',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'paused',
-                borderColor: color_2,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'shut',
-                borderColor: color_3,
-                data: initArr,
-                pointRadius: 0.1
-            }
-        ]
+            labels: label,
+            datasets: [
+                {
+                    label: 'running',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1 
+                },{
+                    label: 'paused',
+                    borderColor: color_2,
+                    data: initArr,
+                    pointRadius: 0.1
+                },{
+                    label: 'shut',
+                    borderColor: color_3,
+                    data: initArr,
+                    pointRadius: 0.1 
+                }
+            ]
     };
     var cpudata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'total',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'sys',
-                borderColor: color_2,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'usr',
-                borderColor: color_3,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'wio',
-                borderColor: color_4,
-                data: initArr,
-                pointRadius: 0.1
-            }
+            labels: label,
+            datasets: [
+                {
+                    label: 'total',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1 
+                },{
+                    label: 'sys',
+                    borderColor: color_2,
+                    data: initArr,
+                    pointRadius: 0.1
+                },{
+                    label: 'usr',
+                    borderColor: color_3,
+                    data: initArr,
+                    pointRadius: 0.1 
+                },{
+                    label: 'wio',
+                    borderColor: color_4,
+                    data: initArr,
+                    pointRadius: 0.1 
+                }
 
-        ]
+            ]
     };
     var memdata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'free',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'cache',
-                borderColor: color_2,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'used',
-                borderColor: color_3,
-                data: initArr,
-                pointRadius: 0.1
-            }
-
-        ]
+            labels: label,
+            datasets: [
+                {
+                    label: 'free',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1 
+                },{
+                    label: 'cache',
+                    borderColor: color_2,
+                    data: initArr,
+                    pointRadius: 0.1
+                },{
+                    label: 'used',
+                    borderColor: color_3,
+                    data: initArr,
+                    pointRadius: 0.1 
+                }
+                
+            ]
     };
     var netdata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'usage',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }
+            labels: label,
+            datasets: [
+                {
+                    label: 'usage',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1 
+                }
 
-        ]
+            ]
     };
     var powdata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'consumption',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }
+            labels: label,
+            datasets: [
+                {
+                    label: 'consumption',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1
+                }
 
-        ]
+            ]
     };
     var fsdata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'used',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }
-        ]
+            labels: label,
+            datasets: [
+                {
+                    label: 'used',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1 
+                }                   
+            ]
     };
     var stodata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'kbr/s',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }, {
-                label: 'kbw/s',
-                borderColor: color_2,
-                data: initArr,
-                pointRadius: 0.1
-            }
-        ]
+            labels: label,
+            datasets: [
+                {
+                    label: 'kbr/s',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1
+                },{
+                    label: 'kbw/s',
+                    borderColor: color_2,
+                    data: initArr,
+                    pointRadius: 0.1
+                }                    
+            ]
     };
     var tpsdata = {
-        labels: label,
-        datasets: [
-            {
-                label: 'tps',
-                borderColor: color_1,
-                data: initArr,
-                pointRadius: 0.1
-            }
-        ]
+            labels: label,
+            datasets: [
+                {
+                    label: 'tps',
+                    borderColor: color_1,
+                    data: initArr,
+                    pointRadius: 0.1
+                }                   
+            ]
     };
-    var options = {
-        animation: {
-            duration: 0
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        responsiveAnimationDuration: 0,
-        legend: {
-            display: true
-        },
-        scales: {
-            xAxes: [{
-                stacked: false,
-                display: false
-            }],
-            yAxes: [{
-                stacked: false,
-            }]
-        },
-        tooltips: {}
-    };
+     var options = {
+                animation: {
+                    duration: 0
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                responsiveAnimationDuration: 0,
+                legend: {
+                    display: true
+                },
+                scales:{
+                    xAxes: [{ 
+                        stacked: false,
+                        display: false
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                    }]
+                },
+                tooltips: {
+                }
+            };
+
     // create all charts
     var ctx = document.getElementById("vmLineChart");
     vmLine = new Chart(ctx, {
@@ -314,8 +589,8 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false,
                     scaleLabel: {
@@ -325,13 +600,14 @@ var buildCharts = function() {
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'Amount'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("cnLineChart");
@@ -351,23 +627,23 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'Amount'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
-    });
-    var ctx = document.getElementById("cpuLineChart").getContext("2d");
+    });    var ctx = document.getElementById("cpuLineChart").getContext("2d");
     cpuLine = new Chart(ctx, {
         type: 'line',
         data: cpudata,
@@ -384,20 +660,21 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
-                    display: false
+                    display: false 
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'Percentage'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("memLineChart").getContext("2d");
@@ -417,20 +694,21 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'GB'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("netLineChart").getContext("2d");
@@ -450,20 +728,21 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'MB/s'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("powLineChart").getContext("2d");
@@ -483,20 +762,21 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'Watts'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("fsLineChart").getContext("2d");
@@ -516,20 +796,21 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'GB'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("stoLineChart").getContext("2d");
@@ -549,20 +830,21 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'kb/s'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
     var ctx = document.getElementById("tpsLineChart").getContext("2d");
@@ -582,22 +864,22 @@ var buildCharts = function() {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
+            scales:{
+                xAxes: [{ 
                     stacked: false,
                     display: false
                 }],
                 yAxes: [{
                     stacked: false,
-                    scaleLabel: {
+                    scaleLabel:{
                         display: true,
                         labelString: 'tps'
                     }
                 }]
             },
-            tooltips: {}
+            tooltips: {
+            }
         }
     });
 
-//});
 }
